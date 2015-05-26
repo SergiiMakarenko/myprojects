@@ -100,40 +100,11 @@ public class AjaxController {
     String[] verbsAjax(Model model, String[] verbListId, String[] pastSimple, String[] pastParticiple,
                        String[] pastSimpleResult, String[] pastParticipleResult,
                        @ModelAttribute("userName") String userName){
-        System.out.println("Hello ajax");
 
         boolean save = testService.saveIrregularVerbTest(userName, verbListId, pastSimple, pastParticiple,
                 pastSimpleResult,pastParticipleResult);
-        System.out.println(save);
-        System.out.print("Tests id: ");
-        for(int i = 0; i<verbListId.length;i++){
-            System.out.print(verbListId[i]+", ");
-        }
-        System.out.println();
-        System.out.print("PastSimple: ");
-        for(int i = 0; i<pastSimple.length;i++){
-            System.out.print(pastSimple[i]+", ");
-        }
-        System.out.println();
-        System.out.print("PastParticiple: ");
-        for(int i = 0; i<pastParticiple.length;i++){
-            System.out.print(pastParticiple[i]+", ");
-        }
-        System.out.println();
-        System.out.print("PastSimpleResult: ");
-        for(int i = 0; i<pastSimpleResult.length;i++){
-            System.out.print(pastSimpleResult[i]+", ");
-        }
-        System.out.println();
-        System.out.print("PastParticipleResult: ");
-        for(int i = 0; i<pastParticipleResult.length;i++){
-            System.out.print(pastParticipleResult[i]+", ");
-        }
 
-
-
-            return verbListId;
+        return verbListId;
     }
-
 
 }

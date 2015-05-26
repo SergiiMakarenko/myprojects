@@ -23,7 +23,6 @@ import java.util.List;
 @Controller
 @SessionAttributes({"logAmount", "userName", "userRole"})
 public class VerbController {
-    private static Logger logger = Logger.getLogger(VerbController.class);
 
     @Autowired
     private IrregularVerbService irregularVerbService;
@@ -34,15 +33,9 @@ public class VerbController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/verbs.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/verbs", method = {RequestMethod.POST, RequestMethod.GET})
     public String verbs(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
                        @ModelAttribute("userName") String userName){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
 
         testService.getTestResults("",userService.getUserByLogin(userName),new Date(115,04,20),
                 new Date(115,04,23));
@@ -67,18 +60,11 @@ public class VerbController {
         return "verbs";
     }
 
-    @RequestMapping(value = "/verbsTest.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/verbsTest", method = {RequestMethod.POST, RequestMethod.GET})
     public String verbsTest(Model model, String cntWords, String startPosition, @ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("userName") String userName){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
 
         model.addAttribute("cntWords", cntWords);
-
 
         if (cntWords!=null) {
             if(startPosition==null){
@@ -90,16 +76,10 @@ public class VerbController {
         return "verbsTest";
     }
 
-    @RequestMapping(value = "/verbAdd.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/verbAdd", method = {RequestMethod.POST, RequestMethod.GET})
     public String verbAdd(Model model, String infinitive, String pastSimple, String pastParticiple,
                           @ModelAttribute("logAmount") int logAmount,
                             @ModelAttribute("userName") String userName){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
 
         if(infinitive!=null) {
             Long create = irregularVerbService.addVerb(new IrregularVerb(infinitive,pastSimple,pastParticiple));
@@ -111,16 +91,11 @@ public class VerbController {
         }
         return "verbAdd";
     }
-    @RequestMapping(value = "/verbEdit.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/verbEdit", method = {RequestMethod.POST, RequestMethod.GET})
     public String verbEdit(Model model, String verbId, String infinitive, String pastSimple, String pastParticiple,
                           @ModelAttribute("logAmount") int logAmount,
                           @ModelAttribute("userName") String userName){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
+
         model.addAttribute("verbList",irregularVerbService.findAllIrregularVerbs());
         model.addAttribute("infinitive",infinitive);
         model.addAttribute("pastSimple",pastSimple);
@@ -139,15 +114,9 @@ public class VerbController {
         return "verbEdit";
     }
 
-    @RequestMapping(value = "/reportTestsView.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/reportTestsView", method = {RequestMethod.POST, RequestMethod.GET})
     public String reportTestsView(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("userName") String userName){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
 
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
@@ -170,7 +139,5 @@ public class VerbController {
         }
         return "reportTestsView";
     }
-
-
 
 }

@@ -66,30 +66,11 @@ public class AuthController {
         return new HashMap<String,List<MenuItems>>();
     }
 
-    public void readFromFile() throws IOException {
-        Path path = Paths.get("log.txt");
-        SeekableByteChannel channel = Files.newByteChannel(path, StandardOpenOption.READ);
-        ByteBuffer buffer = ByteBuffer.allocate(100);
-
-        int reader;
-        while (( reader = channel.read(buffer))>0){
-            System.out.println(new String(buffer.array(),0,reader));
-            buffer.rewind();
-        }
-
-    }
 
     @RequestMapping(value = "/", method = {RequestMethod.HEAD, RequestMethod.GET})
     public String start(Model model,@ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole){
         logger.info("start web");
-
-//        try {
-//            readFromFile();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        
 
         Map<String,List<MenuItems>> mapMenu = new HashMap<>();
         List<Menu> menus = menuService.getMenuByRole(userService.getRoleByName(userRole));
@@ -101,12 +82,10 @@ public class AuthController {
         return "homePage";
     }
 
-    @RequestMapping(value = "/homePage.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/homePage", method = {RequestMethod.POST, RequestMethod.GET})
     public String dbTest(Model model, @ModelAttribute("logAmount") int logAmount,String login, String pass,
                        @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole){
-        if(logAmount<1){
-            return "lock";
-        }
+
         Map<String,List<MenuItems>> mapMenu = new HashMap<>();
         boolean auth = userService.checkUser(login,pass);
         if(auth) {
@@ -134,7 +113,7 @@ public class AuthController {
     }
 
 
-    @RequestMapping(value = "/register.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/register", method = {RequestMethod.POST, RequestMethod.GET})
     public String register(Model model, String userLogin, String userPassword, String userPasswordConfirm
             ,@ModelAttribute("map") Map<String,List<MenuItems>> map
     ){
@@ -142,7 +121,6 @@ public class AuthController {
         model.addAttribute("userPassword", userPassword);
         model.addAttribute("userPasswordConfirm", userPasswordConfirm);
         if(userLogin!=null){
-            System.out.println(userPassword+"="+userPasswordConfirm);
             if(userPassword.equals(userPasswordConfirm)){
                 Long newUserId = userService.createUser(userLogin, userPassword, userService.getRoleByName("User"));
                 if(newUserId!=null){
@@ -155,7 +133,4 @@ public class AuthController {
         }
         return "register";
     }
-
-
-
 }

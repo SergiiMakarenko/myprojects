@@ -31,19 +31,10 @@ public class AdminController {
     @Autowired
     private MenuService menuService;
 
-    @RequestMapping(value = "/roleAdd.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/roleAdd", method = {RequestMethod.POST, RequestMethod.GET})
     public String roleAdd(Model model, String roleName, @ModelAttribute("logAmount") int logAmount,
                        @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole
             ,@ModelAttribute("map") Map<String,List<MenuItems>> map){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
-        if(!userRole.equals("Administrator")){
-            return "dashboardUser";
-        }
 
         if(roleName!=null) {
             Long create = userService.createRole(roleName);
@@ -58,20 +49,12 @@ public class AdminController {
 
 
 
-    @RequestMapping(value = "/userEdit.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/userEdit", method = {RequestMethod.POST, RequestMethod.GET})
     public String userEdit(Model model, String userId, String userLogin, String userPass, String userPassConfirm,
                           String roleId, @ModelAttribute("logAmount") int logAmount,
                        @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole
             ,@ModelAttribute("map") Map<String,List<MenuItems>> map){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
-        if(!userRole.equals("Administrator")){
-            return "dashboardUser";
-        }
+
         model.addAttribute("userList",userService.findAllUsers());
         model.addAttribute("roleList",userService.findAllRole());
         if(userId!=null){
@@ -88,9 +71,7 @@ public class AdminController {
             } else{
                 model.addAttribute("RegisterMessageFalse", "Failed edit user");
             }
-
         }
-
         return "userEdit";
     }
 
@@ -98,13 +79,6 @@ public class AdminController {
     public String users(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("userName") String userName ,
                         @ModelAttribute("map") Map<String,List<MenuItems>> map){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
-
 
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
@@ -126,16 +100,11 @@ public class AdminController {
         return "users";
     }
 
-    @RequestMapping(value = "/roles.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/roles", method = {RequestMethod.POST, RequestMethod.GET})
     public String roles(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("userName") String userName ,
                         @ModelAttribute("map") Map<String,List<MenuItems>> map){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
+
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
 
@@ -156,15 +125,12 @@ public class AdminController {
         return "roles";
     }
 
-    @RequestMapping(value = "/menuAdd.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/menuAdd", method = {RequestMethod.POST, RequestMethod.GET})
     public String menuAdd(Model model, String menuName, String roleId, @ModelAttribute("logAmount") int logAmount,
                           @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole
             ,@ModelAttribute("map") Map<String,List<MenuItems>> map){
-        if(logAmount<1){
-            return "lock";
-        }
-        model.addAttribute("roleList",userService.findAllRole());
 
+        model.addAttribute("roleList",userService.findAllRole());
         if(menuName!=null) {
             Long create = menuService.createMenu(menuName,userService.getRoleById(Long.parseLong(roleId)));
             if (create != null) {
@@ -176,17 +142,13 @@ public class AdminController {
         return "menuAdd";
     }
 
-    @RequestMapping(value = "/menus.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/menus", method = {RequestMethod.POST, RequestMethod.GET})
     public String menu(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
                        // @ModelAttribute("userName") String userName ,
                         @ModelAttribute("map") Map<String,List<MenuItems>> map){
-        if(logAmount<1){
-            return "lock";
-        }
 
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
-
         if (portion!=null) {
             if(startPosition==null){
                 startPosition="0";
@@ -204,14 +166,10 @@ public class AdminController {
         return "menus";
     }
 
-    @RequestMapping(value = "/menuItems.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/menuItems", method = {RequestMethod.POST, RequestMethod.GET})
     public String menuItems(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
                        // @ModelAttribute("userName") String userName ,
                        @ModelAttribute("map") Map<String,List<MenuItems>> map){
-        if(logAmount<1){
-            return "lock";
-        }
-
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
 
@@ -231,14 +189,12 @@ public class AdminController {
         return "menuItems";
     }
 
-    @RequestMapping(value = "/menuItemsAdd.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/menuItemsAdd", method = {RequestMethod.POST, RequestMethod.GET})
     public String menuItemsAdd(Model model, String menuItems,String menuItemsCode, String menuId,
                                @ModelAttribute("logAmount") int logAmount,
                           @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole
             ,@ModelAttribute("map") Map<String,List<MenuItems>> map){
-        if(logAmount<1){
-            return "lock";
-        }
+
         model.addAttribute("menuList",menuService.findAllMenu());
         model.addAttribute("menuItems",menuItems);
         model.addAttribute("menuItemsCode",menuItemsCode);

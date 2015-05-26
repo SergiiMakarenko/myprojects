@@ -34,18 +34,9 @@ Locale locale = Locale.UK;
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/categoryAdd.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/categoryAdd", method = {RequestMethod.POST, RequestMethod.GET})
     public String categoryAdd(Model model, String categoryName, @ModelAttribute("logAmount") int logAmount,
                           @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
-        if(!userRole.equals("Administrator")){
-            return "dashboardUser";
-        }
 
         if(categoryName!=null) {
             Long create = wordService.addCategory(categoryName);
@@ -58,15 +49,10 @@ Locale locale = Locale.UK;
         return "categoryAdd";
     }
 
-    @RequestMapping(value = "/categories.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/categories", method = {RequestMethod.POST, RequestMethod.GET})
     public String categories(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("userName") String userName){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
+
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
 
@@ -74,7 +60,6 @@ Locale locale = Locale.UK;
             if(startPosition==null){
                 startPosition="0";
             }
-
             int amount = wordService.findAllCategories().size();
             int startFrom = Integer.parseInt(startPosition);
             List<Category> categories = wordService.getCategoryByPortion(portion, startPosition);
@@ -87,16 +72,11 @@ Locale locale = Locale.UK;
         return "categories";
     }
 
-    @RequestMapping(value = "/categoryEdit.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/categoryEdit", method = {RequestMethod.POST, RequestMethod.GET})
     public String categoryEdit(Model model, String categoryId, String categoryName,
                            @ModelAttribute("logAmount") int logAmount,
                            @ModelAttribute("userName") String userName){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
+
         model.addAttribute("categoryList",wordService.findAllCategories());
         model.addAttribute("categoryId",categoryId);
         model.addAttribute("categoryName",categoryName);
@@ -113,20 +93,10 @@ Locale locale = Locale.UK;
         return "categoryEdit";
     }
 
-    @RequestMapping(value = "/wordAdd.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/wordAdd", method = {RequestMethod.POST, RequestMethod.GET})
     public String wordAdd(Model model, String english, String ukrainian, String transcription, String categoryId,
                           @ModelAttribute("logAmount") int logAmount,
                               @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
-        if(!userRole.equals("Administrator")){
-            return "dashboardUser";
-        }
-
 
         model.addAttribute("categoryList",wordService.findAllCategories());
         model.addAttribute("english",english);
@@ -148,15 +118,10 @@ Locale locale = Locale.UK;
         return "wordAdd";
     }
 
-    @RequestMapping(value = "/words.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/words", method = {RequestMethod.POST, RequestMethod.GET})
     public String words(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
                              @ModelAttribute("userName") String userName){
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
+
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
 
@@ -177,17 +142,11 @@ Locale locale = Locale.UK;
         return "words";
     }
 
-    @RequestMapping(value = "/wordEdit.html", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/wordEdit", method = {RequestMethod.POST, RequestMethod.GET})
     public String wordEdit(Model model, String categoryId, String wordId, String userId, String english,
                            String ukrainian, String transcription, HttpServletRequest request,
                                @ModelAttribute("logAmount") int logAmount,
                                @ModelAttribute("userName") String userName) throws UnsupportedEncodingException {
-        if(logAmount<1){
-            return "lock";
-        }
-        if(userName.equals("")){
-            return "index";
-        }
 
         model.addAttribute("categoryList",wordService.findAllCategories());
         model.addAttribute("categoryId",categoryId);
