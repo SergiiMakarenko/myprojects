@@ -1,0 +1,192 @@
+body{
+    background-image: url("/images/backMain.png");
+    background-repeat: repeat;
+
+}
+.formTitle{
+    background-image: url("/images/backFrom_2.jpg");
+    border-radius: 5px;
+    width: 450px;
+    margin: 20px;
+    padding: 5px;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+}
+.formWork{
+    border-radius: 10px;
+    margin: 2px;
+    padding: 5px;
+    background: darkseagreen;
+}
+.error{
+    color: red;
+    display: inline-block;
+}
+.success{
+    color: green;
+}
+.resultTable{
+    border-collapse: collapse;
+}
+.resultTable th{
+    text-align: center;
+    border: 1px solid azure;
+    padding: 5px;
+    background: blue;
+    color: aliceblue;
+}
+.resultTable td{
+    text-align: left;
+    border: 1px solid azure;
+    padding: 1px;
+    font-size: medium;
+    color: darkslategrey;
+}
+#whiteRow{
+   background: rgb(225,225,225);
+}
+.promptText{
+    font-size: small;
+    font-style: italic;
+    color: black;
+}
+div.Horizontal{
+    background: mediumpurple;
+    height: 10%;
+    /*padding: 1px;*/
+    /*border: 2px solid black;*/
+}
+div.Horizontal+div.Horizontal{
+    background: cornflowerblue;
+}
+#rightColumn+div.Horizontal{
+    background: lightgrey;
+}
+#mainBlock{
+    display: inline-block;
+    overflow: auto;
+    width: 78%;
+    height: 150%;
+}
+#leftColumn{
+    display: inline-block;
+    overflow: auto;
+    width: 10%;
+    height: 150%;
+}
+#rightColumn{
+    display: inline-block;
+    overflow: auto;
+    width: 10%;
+    height: 150%;
+}
+.User{
+    width: 19%;
+    height: 10%;
+    position: absolute;
+    border-radius: 10px;
+    font-weight: bold;
+    color: ghostwhite;
+    font-size: xx-large;
+    text-align: center;
+    background-image: url("/images/engFlag2.jpeg");
+    cursor: pointer;
+}
+.backToHome{
+    position: absolute;
+    left: 87%;
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    background-image: url("/images/home_2.png");
+    cursor: pointer;
+    background-position: center;
+    background-size: cover;
+}
+.logOut{
+    position: absolute;
+    left: 93%;
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    background-image: url("/images/logout.png");
+    cursor: pointer;
+    background-position: center;
+    background-size: cover;
+}
+text{
+    background: orangered;
+}
+.divMenu{
+    background: lightgoldenrodyellow;
+    padding: 5px;
+    cursor: pointer;
+    font-size: large;
+    color: blue;
+}
+.buttonRegister{
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    border-radius: 150px;
+
+    cursor: pointer;
+    background-image: url("/images/register_3.jpeg");
+    background-position: center;
+    /*background-size: cover;*/
+}
+.buttonForm{
+    padding: 2px 10px 2px 10px;
+    background: lightgreen;
+    font-size: large;
+    margin: 3px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.buttonLogIn{
+    width: 140px;
+    height: 50px;
+    margin: 3px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-image: url("/images/login.png");
+    background-position: center;
+    background-size: cover;
+}
+.divMenuHead{
+    border-radius: 5px;
+    font-size: x-large;
+    padding: 5px;
+    color: whitesmoke;
+    font-weight: bold;
+    text-align: center;
+    cursor: context-menu;
+}
+
+ul.dropdown li { position: relative;
+}
+ul.dropdown,
+ul.dropdown-inside {
+    list-style-type: none;
+    padding: 0px;
+    width: 100%;
+}
+ul.dropdown-inside {
+    position: absolute;
+    left: -10000px;
+}
+ul.dropdown li.dropdown-top {
+    width: 18%;
+    display: inline;
+    float: left;
+    margin: 0 1px 0 0;
+}
+ul.dropdown li.dropdown-top a {
+    padding: 0px 0px 0px;
+    display: block;
+}
+ul.dropdown li.dropdown-top:hover .dropdown-inside {
+    display: block;
+    left: 0;
+}
+
