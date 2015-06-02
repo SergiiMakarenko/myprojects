@@ -60,10 +60,10 @@ public class MenuDaoImpl implements MenuDao {
     }
 
     @Override
-    public List<Menu> getMenusByPortion(String portion, String startFrom) {
+    public List<Menu> getMenusByPortion(int portion, int startFrom) {
         return factory.getCurrentSession().createCriteria(Menu.class)
-                .setFirstResult(Integer.parseInt(startFrom))
-                .setMaxResults(Integer.parseInt(portion))
+                .setFirstResult(startFrom)
+                .setMaxResults(portion)
                 .list();
     }
 

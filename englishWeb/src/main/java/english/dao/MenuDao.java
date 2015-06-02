@@ -13,6 +13,6 @@ public interface MenuDao {
     List<Menu> findAllMenu();
     Menu getMenuById(Long id);
     List<Menu> getMenuByRole(Role role);
-    List<Menu> getMenusByPortion(String portion, String startFrom);
+    List<Menu> getMenusByPortion(int portion, int startFrom);
     boolean editMenu(Long menuId, String menuCategory, Role role);
 }

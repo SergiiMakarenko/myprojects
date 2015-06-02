@@ -64,10 +64,10 @@ public class WordDaoImpl implements WordDao {
     }
 
     @Override
-    public List<Word> getWordsByPortion(String portion, String startFrom) {
+    public List<Word> getWordsByPortion(int portion, int startFrom) {
         return factory.getCurrentSession().createCriteria(Word.class)
-                .setMaxResults(Integer.parseInt(portion))
-                .setFirstResult(Integer.parseInt(startFrom))
+                .setMaxResults(portion)
+                .setFirstResult(startFrom)
                 .list();
     }
 

@@ -27,24 +27,24 @@
                     }
                 }
 
+                function detailVerbs(testId){
+                    $('body').append($('<div id="viewDetail">'+'</div>'));
+                    var tempDiv = document.getElementById("viewDetail");
+                    $(tempDiv).append($('<table class="resultTable" id = "tempTable">' + '</table>'));
+                    var table = document.getElementById("tempTable");
+                    $(table).append($('<TR id = "headTableTemp">'+'</TR>'));
+                    var head = document.getElementById("headTableTemp");
 
+                    $(head).append($('<Th>'+'Infinitive'+'</Th>'));
+                    $(head).append($('<Th>'+'PastSimple'+'</Th>'));
+                    $(head).append($('<Th>'+'PastParticiple'+'</Th>'));
 
-                function setBG() {
-                   var effectiveness = document.getElementsByClassName('resultTest');
-                    for(i=0;i<effectiveness.length;i++){
-                        var red= 0;
-                        var green = 0;
+                    $(tempDiv).append($('<button id="buttonOk" onclick="deleteDetailView()">'+'OK'+'</button>'));
+                }
 
-                        if(effectiveness[i].innerHTML<0.5){
-                             red = 255*(1-effectiveness[i].innerHTML*2);
-                        } else{
-                            green = 255*((effectiveness[i].innerHTML-0.5)*2);
-                        }
-                        red =  parseInt(red);
-                        green= parseInt(green);
-                        $(effectiveness[i]).css('color', 'rgb('+red+','+green+',0)');
-                        effectiveness[i].innerHTML = effectiveness[i].innerHTML*100 + ' %';
-                    }
+                function deleteDetailView(){
+                    var tempDiv = document.getElementById("viewDetail");
+                    $(tempDiv).remove();
                 }
 
             </script>
@@ -125,6 +125,7 @@
               <Th>Count correct past participle answer</Th>
               <Th>Past participle effectiveness</Th>
               <Th>Common effectiveness</Th>
+              <Th>Detail</Th>
 
           </TR>
           <c:set var="rowIndex" value="0"></c:set>
@@ -145,6 +146,7 @@
                   <TD>${test.correctPastParticipleCount}</TD>
                   <TD class="resultTest" >${test.pastParticipleEffectiveness}</TD>
                   <TD class="resultTest" >${test.effectiveness}</TD>
+                  <TD ><button onclick="detailVerbs(${test.test.testId})">view</button></TD>
 
               </TR>
           </c:forEach>

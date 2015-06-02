@@ -47,10 +47,10 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public List<Role> getRolesByPortion(String portion, String startFrom) {
+    public List<Role> getRolesByPortion(int portion, int startFrom) {
         return factory.getCurrentSession().createCriteria(Role.class)
-                .setMaxResults(Integer.parseInt(portion))
-                .setFirstResult(Integer.parseInt(startFrom))
+                .setMaxResults(portion)
+                .setFirstResult(startFrom)
                 .list();
     }
 

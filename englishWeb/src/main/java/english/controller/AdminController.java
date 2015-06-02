@@ -31,6 +31,25 @@ public class AdminController {
     @Autowired
     private MenuService menuService;
 
+    public String viewItems(Model model,Integer portion, Integer startPosition,String listName, String jspName){
+        model.addAttribute("portion", portion);
+        model.addAttribute("startPosition", startPosition);
+
+        if(portion==null)
+            return jspName;
+        startPosition = startPosition == null ? startPosition = 0 : startPosition;
+
+        Integer amount = userService.findAllUsers().size();
+        List<User> list = userService.getUsersByPortion(portion,startPosition);
+        model.addAttribute(listName, list);
+        model.addAttribute("fullList", list.size()+startPosition
+                == amount);
+        model.addAttribute("message", startPosition+1 + "-" + (list.size()+startPosition) +
+                " from " + amount);
+
+        return jspName;
+    }
+
     @RequestMapping(value = "/roleAdd", method = {RequestMethod.POST, RequestMethod.GET})
     public String roleAdd(Model model, String roleName, @ModelAttribute("logAmount") int logAmount,
                        @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole
@@ -76,52 +95,33 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users.html", method = {RequestMethod.POST, RequestMethod.GET})
-    public String users(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
+    public String users(Model model, Integer portion,Integer startPosition, @ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("userName") String userName ,
                         @ModelAttribute("map") Map<String,List<MenuItems>> map){
 
-        model.addAttribute("portion", portion);
-        model.addAttribute("startPosition", startPosition);
-
-        if (portion!=null) {
-            if(startPosition==null){
-                startPosition="0";
-            }
-
-            int amount = userService.findAllUsers().size();
-            int startFrom = Integer.parseInt(startPosition);
-            List<User> users = userService.getUsersByPortion(portion,startPosition);
-            model.addAttribute("userList", users);
-            model.addAttribute("fullList", users.size()+startFrom
-                    == amount);
-            model.addAttribute("message", startFrom+1 + "-" + (users.size()+startFrom) +
-                    " from " + amount);
-        }
-        return "users";
+        return viewItems(model,portion,startPosition,"userList","users");
     }
 
     @RequestMapping(value = "/roles", method = {RequestMethod.POST, RequestMethod.GET})
-    public String roles(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
+    public String roles(Model model, Integer portion, Integer startPosition, @ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("userName") String userName ,
                         @ModelAttribute("map") Map<String,List<MenuItems>> map){
 
+//        return viewItems(model,portion,startPosition,"roleList","roles");
+
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
-
-        if (portion!=null) {
-            if(startPosition==null){
-                startPosition="0";
-            }
-
+        if(portion==null)
+            return "roles";
+        startPosition = startPosition == null ? startPosition = 0 : startPosition;
             int amount = userService.findAllRole().size();
-            int startFrom = Integer.parseInt(startPosition);
             List<Role> roles = userService.getRolesByPortion(portion,startPosition);
             model.addAttribute("roleList", roles);
-            model.addAttribute("fullList", roles.size()+startFrom
+            model.addAttribute("fullList", roles.size()+startPosition
                     == amount);
-            model.addAttribute("message", startFrom+1 + "-" + (roles.size()+startFrom) +
+            model.addAttribute("message", startPosition+1 + "-" + (roles.size()+startPosition) +
                     " from " + amount);
-        }
+
         return "roles";
     }
 
@@ -143,49 +143,41 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/menus", method = {RequestMethod.POST, RequestMethod.GET})
-    public String menu(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
-                       // @ModelAttribute("userName") String userName ,
+    public String menu(Model model, Integer portion, Integer startPosition, @ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("map") Map<String,List<MenuItems>> map){
 
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
-        if (portion!=null) {
-            if(startPosition==null){
-                startPosition="0";
-            }
-
+        if(portion==null)
+            return "menus";
+        startPosition = startPosition == null ? startPosition = 0 : startPosition;
             int amount = menuService.findAllMenu().size();
-            int startFrom = Integer.parseInt(startPosition);
             List<Menu> menus = menuService.getMenusByPortion(portion, startPosition);
             model.addAttribute("menuList", menus);
-            model.addAttribute("fullList", menus.size()+startFrom
+            model.addAttribute("fullList", menus.size()+startPosition
                     == amount);
-            model.addAttribute("message", startFrom+1 + "-" + (menus.size()+startFrom) +
+            model.addAttribute("message", startPosition+1 + "-" + (menus.size()+startPosition) +
                     " from " + amount);
-        }
         return "menus";
     }
 
     @RequestMapping(value = "/menuItems", method = {RequestMethod.POST, RequestMethod.GET})
-    public String menuItems(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
+    public String menuItems(Model model, Integer portion, Integer startPosition, @ModelAttribute("logAmount") int logAmount,
                        // @ModelAttribute("userName") String userName ,
                        @ModelAttribute("map") Map<String,List<MenuItems>> map){
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
-
-        if (portion!=null) {
-            if(startPosition==null){
-                startPosition="0";
-            }
+        if(portion==null)
+            return "menuItems";
+        startPosition = startPosition == null ? startPosition = 0 : startPosition;
             int amount = menuService.findAllMenuItems().size();
-            int startFrom = Integer.parseInt(startPosition);
             List<MenuItems> menuItemses = menuService.getMenuItemsByPortion(portion, startPosition);
             model.addAttribute("menuList", menuItemses);
-            model.addAttribute("fullList", menuItemses.size()+startFrom
+            model.addAttribute("fullList", menuItemses.size()+startPosition
                     == amount);
-            model.addAttribute("message", startFrom+1 + "-" + (menuItemses.size()+startFrom) +
+            model.addAttribute("message", startPosition+1 + "-" + (menuItemses.size()+startPosition) +
                     " from " + amount);
-        }
+
         return "menuItems";
     }
 

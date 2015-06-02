@@ -14,7 +14,7 @@ public interface TestVerbDao {
                         Long pastParticipleResult, Test test, IrregularVerb verb);
     List<TestVerb> findAllTestVerb();
     TestVerb getTestVerbById(Long id);
-    List<TestVerb> getTestVerbsByPortion(String portion, String startFrom);
+    List<TestVerb> getTestVerbsByPortion(int portion, int startFrom);
     boolean updateTestVerb(Long testVerbId, String pastSimpleTest, String pastParticipleTest, Long pastSimpleResult,
                            Long pastParticipleResult, Test test, IrregularVerb verb);
     List<TestVerb> getTestVerbsByTest(Test test);

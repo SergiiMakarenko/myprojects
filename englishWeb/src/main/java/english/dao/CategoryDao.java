@@ -12,6 +12,6 @@ public interface CategoryDao {
     List<Category> findAllCategories();
     Category getCategoryById(Long id);
     Category getCategoryByName(String categoryName);
-    List<Category> getCategoryByPortion(String portion, String startFrom);
+    List<Category> getCategoryByPortion(int portion, int startFrom);
     boolean editCategory(Long categoryId, String name);
 }

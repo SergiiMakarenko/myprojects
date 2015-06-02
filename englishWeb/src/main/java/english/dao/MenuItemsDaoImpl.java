@@ -60,10 +60,10 @@ public class MenuItemsDaoImpl implements MenuItemsDao {
     }
 
     @Override
-    public List<MenuItems> getMenuItemsByPortion(String portion, String startFrom) {
+    public List<MenuItems> getMenuItemsByPortion(int portion, int startFrom) {
         return factory.getCurrentSession().createCriteria(MenuItems.class)
-                .setMaxResults(Integer.parseInt(portion))
-                .setFirstResult(Integer.parseInt(startFrom))
+                .setMaxResults(portion)
+                .setFirstResult(startFrom)
                 .addOrder(Order.asc("menu"))
                 .list();
     }

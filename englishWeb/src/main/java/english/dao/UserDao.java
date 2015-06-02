@@ -17,7 +17,7 @@ public interface UserDao {
     boolean checkUser(String login, String password);
     User readUser(String login, String password);
     User getUserById(Long id);
-    List<User> getUsersByPortion(String portion, String startFrom);
+    List<User> getUsersByPortion(int portion, int startFrom);
     User getUserByLogin(String userLogin);
     boolean updateUser(User user);
 }

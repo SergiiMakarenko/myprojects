@@ -16,14 +16,14 @@ public interface MenuService {
     List<Menu> findAllMenu();
     Menu getMenuById(Long id);
     List<Menu> getMenuByRole(Role role);
-    List<Menu> getMenusByPortion(String portion, String startFrom);
+    List<Menu> getMenusByPortion(int portion, int startFrom);
     boolean editMenu(Long menuId, String menuCategory, Role role);
 
     Long createMenuItems(String menuItems, String menuItemsCode, Menu menu);
     List<MenuItems> findAllMenuItems();
     MenuItems getMenuItemsById(Long id);
     List<MenuItems> getMenuItemsByMenu(Menu menu);
-    List<MenuItems> getMenuItemsByPortion(String portion, String startFrom);
+    List<MenuItems> getMenuItemsByPortion(int portion, int startFrom);
     boolean editMenuItems(Long menuItemsId, String menuItems, String menuItemsCode, Menu menu);
 
 }

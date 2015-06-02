@@ -3,7 +3,7 @@ package english.dao;
 import english.domain.Test;
 import english.domain.TestVerb;
 import english.domain.User;
-import english.results.TestResult;
+import english.results.ResultIrregularVerbs;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +40,10 @@ public class TestDaoImpl implements TestDao {
     }
 
     @Override
-    public List<Test> getTestsByPortion(String portion, String startFrom) {
+    public List<Test> getTestsByPortion(int portion, int startFrom) {
         return factory.getCurrentSession().createCriteria(Test.class)
-                .setFirstResult(Integer.parseInt(startFrom))
-                .setMaxResults(Integer.parseInt(portion))
+                .setFirstResult(startFrom)
+                .setMaxResults(portion)
                 .list();
     }
 
@@ -66,8 +66,8 @@ public class TestDaoImpl implements TestDao {
     }
 
     @Override
-    public List<TestResult> getTestResults(String testName, User user, Date dateFrom, Date dateTo) {
-        List<TestResult> results = new ArrayList<>();
+    public List<ResultIrregularVerbs> getTestResults(String testName, User user, Date dateFrom, Date dateTo) {
+        List<ResultIrregularVerbs> results = new ArrayList<>();
         Iterator iterator = factory.getCurrentSession().createCriteria(TestVerb.class, "testVerb")
                 .createAlias("test", "testAlias")
                 .add(Restrictions.eq("testAlias.user", user))
@@ -79,21 +79,21 @@ public class TestDaoImpl implements TestDao {
                         .add(Projections.sum("pastParticipleResult"))
                         .add(Projections.avg("pastSimpleResult"))
                         .add(Projections.avg("pastParticipleResult"))
-                        .add(Projections.groupProperty("test")))
-                        //.addOrder(Order.desc("testAlias.testDate"))
+                        .add(Projections.groupProperty("test"))
+                        .add(Projections.groupProperty("testAlias.testDate")))
+                        .addOrder(Order.desc("testAlias.testDate"))
                 .list()
                 .iterator();
-        System.out.println("start");
+
         while (iterator.hasNext()){
             Object[]objects = (Object[]) iterator.next();
+
             Test test = (Test) objects[5];
             Long countWordTest = (Long) objects[0];
             Long correctPastSimpleCount = (Long) objects[1];
             Double pastSimpleEffectiveness = (Double) objects[3];
             Long correctPastParticipleCount=(Long) objects[2];
             Double pastParticipleEffectiveness = (Double) objects[4];
-
-
             Double effectiveness = (pastParticipleEffectiveness+pastSimpleEffectiveness)/2;
             String string =String.format("%8.2f", effectiveness);
             effectiveness = Double.parseDouble(string);
@@ -102,10 +102,10 @@ public class TestDaoImpl implements TestDao {
             string = String.format("%8.2f", pastParticipleEffectiveness);
             pastParticipleEffectiveness = Double.parseDouble(string);
 
-                    results.add(new TestResult(test,countWordTest,correctPastSimpleCount, pastSimpleEffectiveness,
+                    results.add(new ResultIrregularVerbs(test,countWordTest,correctPastSimpleCount, pastSimpleEffectiveness,
                     correctPastParticipleCount,pastParticipleEffectiveness,effectiveness));
         }
-        System.out.println(results);
+
         return results;
     }
 }

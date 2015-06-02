@@ -1,6 +1,7 @@
 package english.domain;
 
 import javax.persistence.*;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,8 +56,9 @@ public class Test {
         this.testName = testName;
     }
 
-    public Date getTestDate() {
-        return testDate;
+    public String getTestDate() {
+        String string = String.format("%1$tF",testDate);
+        return string;
     }
 
     public void setTestDate(Date testDate) {

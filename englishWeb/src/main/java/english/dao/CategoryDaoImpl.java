@@ -46,14 +46,13 @@ public class CategoryDaoImpl implements CategoryDao {
         return (Category) factory.getCurrentSession().createCriteria(Category.class)
                 .add(Restrictions.eq("categoryName",categoryName))
                 .uniqueResult();
-
     }
 
     @Override
-    public List<Category> getCategoryByPortion(String portion, String startFrom) {
+    public List<Category> getCategoryByPortion(int portion, int startFrom) {
         return factory.getCurrentSession().createCriteria(Category.class)
-                .setFirstResult(Integer.parseInt(startFrom))
-                .setMaxResults(Integer.parseInt(portion))
+                .setFirstResult(startFrom)
+                .setMaxResults(portion)
                 .list();
     }
 

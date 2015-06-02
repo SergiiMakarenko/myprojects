@@ -50,23 +50,23 @@ Locale locale = Locale.UK;
     }
 
     @RequestMapping(value = "/categories", method = {RequestMethod.POST, RequestMethod.GET})
-    public String categories(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
+    public String categories(Model model, Integer portion, Integer startPosition, @ModelAttribute("logAmount") int logAmount,
                         @ModelAttribute("userName") String userName){
 
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
 
         if (portion!=null) {
-            if(startPosition==null){
-                startPosition="0";
-            }
+            if(startPosition==null)
+                startPosition=0;
+
             int amount = wordService.findAllCategories().size();
-            int startFrom = Integer.parseInt(startPosition);
+
             List<Category> categories = wordService.getCategoryByPortion(portion, startPosition);
             model.addAttribute("categoryList", categories);
-            model.addAttribute("fullList", categories.size()+startFrom
+            model.addAttribute("fullList", categories.size()+startPosition
                     == amount);
-            model.addAttribute("message", startFrom+1 + "-" + (categories.size()+startFrom) +
+            model.addAttribute("message", startPosition+1 + "-" + (categories.size()+startPosition) +
                     " from " + amount);
         }
         return "categories";
@@ -119,28 +119,27 @@ Locale locale = Locale.UK;
     }
 
     @RequestMapping(value = "/words", method = {RequestMethod.POST, RequestMethod.GET})
-    public String words(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
+    public String words(Model model, Integer portion, Integer startPosition, @ModelAttribute("logAmount") int logAmount,
                              @ModelAttribute("userName") String userName){
 
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
 
         if (portion!=null) {
-            if(startPosition==null){
-                startPosition="0";
-            }
+            if(startPosition==null) startPosition=0;
+
 
             int amount = wordService.findAllWords().size();
-            int startFrom = Integer.parseInt(startPosition);
             List<Word> words = wordService.getWordsByPortion(portion, startPosition);
             model.addAttribute("wordList", words);
-            model.addAttribute("fullList", words.size()+startFrom
+            model.addAttribute("fullList", words.size()+startPosition
                     == amount);
-            model.addAttribute("message", startFrom+1 + "-" + (words.size()+startFrom) +
+            model.addAttribute("message", startPosition+1 + "-" + (words.size()+startPosition) +
                     " from " + amount);
         }
         return "words";
     }
+    
 
     @RequestMapping(value = "/wordEdit", method = {RequestMethod.POST, RequestMethod.GET})
     public String wordEdit(Model model, String categoryId, String wordId, String userId, String english,

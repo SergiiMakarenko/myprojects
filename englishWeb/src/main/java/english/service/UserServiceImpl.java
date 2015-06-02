@@ -82,13 +82,13 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> getUsersByPortion(String portion, String startFrom) {
+    public List<User> getUsersByPortion(int portion, int startFrom) {
         return userDao.getUsersByPortion(portion, startFrom);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Role> getRolesByPortion(String portion, String startFrom) {
+    public List<Role> getRolesByPortion(int portion, int startFrom) {
         return roleDao.getRolesByPortion(portion, startFrom);
     }
 

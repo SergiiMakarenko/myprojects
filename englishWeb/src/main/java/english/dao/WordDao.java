@@ -15,7 +15,7 @@ import java.util.List;
 public interface WordDao {
     Long addWord(String eng, String ukr, String transcription, Date dateIn, User user, Category category);
     List<Word> findAll();
-    List<Word> getWordsByPortion(String portion, String startFrom);
+    List<Word> getWordsByPortion(int portion, int startFrom);
     List<Word> getRandomWords(int cntWords);
     boolean wordEdit(Long wordId, String eng, String ukr, String transcription, Date dateIn, User user, Category category);
     Word getWordById(Long wordId);

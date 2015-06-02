@@ -13,6 +13,6 @@ public interface MenuItemsDao {
     List<MenuItems> findAllMenuItems();
     MenuItems getMenuItemsById(Long id);
     List<MenuItems> getMenuItemsByMenu(Menu menu);
-    List<MenuItems> getMenuItemsByPortion(String portion, String startFrom);
+    List<MenuItems> getMenuItemsByPortion(int portion, int startFrom);
     boolean editMenuItems(Long menuItemsId, String menuItems, String menuItemsCode, Menu menu);
 }

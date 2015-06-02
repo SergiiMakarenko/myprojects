@@ -49,7 +49,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Menu> getMenusByPortion(String portion, String startFrom) {
+    public List<Menu> getMenusByPortion(int portion, int startFrom) {
         return menuDao.getMenusByPortion(portion, startFrom);
     }
 
@@ -85,7 +85,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MenuItems> getMenuItemsByPortion(String portion, String startFrom) {
+    public List<MenuItems> getMenuItemsByPortion(int portion, int startFrom) {
         return menuItemsDao.getMenuItemsByPortion(portion, startFrom);
     }
 

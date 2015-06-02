@@ -50,7 +50,7 @@ public class WordServiceImpl implements WordService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Category> getCategoryByPortion(String portion, String startFrom) {
+    public List<Category> getCategoryByPortion(int portion, int startFrom) {
         return categoryDao.getCategoryByPortion(portion, startFrom);
     }
 
@@ -74,7 +74,7 @@ public class WordServiceImpl implements WordService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Word> getWordsByPortion(String portion, String startFrom) {
+    public List<Word> getWordsByPortion(int portion, int startFrom) {
         return wordDao.getWordsByPortion(portion, startFrom);
     }
 

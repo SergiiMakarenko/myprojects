@@ -38,10 +38,10 @@ public class IrregularVerbImpl implements IrregularVerbDao {
     }
 
     @Override
-    public List<IrregularVerb> getVerbsByPortion(String portion, String startFrom) {
+    public List<IrregularVerb> getVerbsByPortion(int portion, int startFrom) {
         return factory.getCurrentSession().createCriteria(IrregularVerb.class)
-                .setMaxResults(Integer.parseInt(portion))
-                .setFirstResult(Integer.parseInt(startFrom))
+                .setMaxResults(portion)
+                .setFirstResult(startFrom)
                 .addOrder(Order.asc("infinitive"))
                 .list();
     }

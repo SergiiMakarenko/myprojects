@@ -30,7 +30,7 @@ public class IrregularVerbServiceImpl implements IrregularVerbService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<IrregularVerb> getVerbsByPortion(String portion, String startFrom) {
+    public List<IrregularVerb> getVerbsByPortion(int portion, int startFrom) {
         return irregularVerbDao.getVerbsByPortion(portion, startFrom);
     }
 

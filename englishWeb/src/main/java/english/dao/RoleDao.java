@@ -12,5 +12,5 @@ public interface RoleDao {
     List<Role> findAllRole();
     Role getRoleById(Long id);
     Role getRoleByName(String roleName);
-    List<Role> getRolesByPortion(String portion, String startFrom);
+    List<Role> getRolesByPortion(int portion, int startFrom);
 }

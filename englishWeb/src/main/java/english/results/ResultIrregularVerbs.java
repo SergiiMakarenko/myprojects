@@ -5,7 +5,7 @@ import english.domain.Test;
 /**
  * Created by serg on 21.05.15.
  */
-public class TestResult {
+public class ResultIrregularVerbs {
     private Test test;
     private Long countWordTest;
     private Long correctPastSimpleCount;
@@ -14,8 +14,8 @@ public class TestResult {
     private Double pastParticipleEffectiveness;
     private Double effectiveness;
 
-    public TestResult(Test test, Long countWordTest, Long correctPastSimpleCount, Double pastSimpleEffectiveness,
-                      Long correctPastParticipleCount, Double pastParticipleEffectiveness, Double effectiveness) {
+    public ResultIrregularVerbs(Test test, Long countWordTest, Long correctPastSimpleCount, Double pastSimpleEffectiveness,
+                                Long correctPastParticipleCount, Double pastParticipleEffectiveness, Double effectiveness) {
         this.test = test;
         this.countWordTest = countWordTest;
         this.correctPastSimpleCount = correctPastSimpleCount;

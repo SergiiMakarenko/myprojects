@@ -16,12 +16,12 @@ public interface WordService {
     List<Category> findAllCategories();
     Category getCategoryById(Long id);
     Category getCategoryByName(String categoryName);
-    List<Category> getCategoryByPortion(String portion, String startFrom);
+    List<Category> getCategoryByPortion(int portion, int startFrom);
     boolean editCategory(Long categoryId, String name);
 
     Long addWord(String eng, String ukr, String transcription, Date dateIn, User user, Category category);
     List<Word> findAllWords();
-    List<Word> getWordsByPortion(String portion, String startFrom);
+    List<Word> getWordsByPortion(int portion, int startFrom);
     List<Word> getRandomWords(int cntWords);
     boolean wordEdit(Long wordId, String eng, String ukr, String transcription, Date dateIn, User user, Category category);
     Word getWordById(Long wordId);

@@ -10,7 +10,7 @@ import java.util.List;
 public interface IrregularVerbDao {
     Long addVerb(IrregularVerb verb);
     List<IrregularVerb> findAllIrregularVerbs();
-    List<IrregularVerb> getVerbsByPortion(String portion, String startFrom);
+    List<IrregularVerb> getVerbsByPortion(int portion, int startFrom);
     List<IrregularVerb> getRandomIrregularVerbs(int cntWords);
     boolean verbEdit(Long id, String infinitive, String pastSimple, String pastParticiple);
     IrregularVerb getVerbById(Long verbId);

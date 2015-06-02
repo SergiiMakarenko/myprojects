@@ -8,7 +8,7 @@ import english.domain.IrregularVerb;
 import english.domain.Test;
 import english.domain.TestVerb;
 import english.domain.User;
-import english.results.TestResult;
+import english.results.ResultIrregularVerbs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +53,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Test> getTestsByPortion(String portion, String startFrom) {
+    public List<Test> getTestsByPortion(int portion, int startFrom) {
         return testDao.getTestsByPortion(portion, startFrom);
     }
 
@@ -85,7 +85,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<TestVerb> getTestVerbsByPortion(String portion, String startFrom) {
+    public List<TestVerb> getTestVerbsByPortion(int portion, int startFrom) {
         return testVerbDao.getTestVerbsByPortion(portion, startFrom);
     }
 
@@ -165,7 +165,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<TestResult> getTestResults(String testName, User user, Date dateFrom, Date dateTo) {
+    public List<ResultIrregularVerbs> getTestResults(String testName, User user, Date dateFrom, Date dateTo) {
         return testDao.getTestResults(testName, user, dateFrom, dateTo);
     }
 

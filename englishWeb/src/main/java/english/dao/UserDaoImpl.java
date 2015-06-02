@@ -110,10 +110,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getUsersByPortion(String portion, String startFrom) {
+    public List<User> getUsersByPortion(int portion, int startFrom) {
         return factory.getCurrentSession().createCriteria(User.class)
-                .setFirstResult(Integer.parseInt(startFrom))
-                .setMaxResults(Integer.parseInt(portion))
+                .setFirstResult(startFrom)
+                .setMaxResults(portion)
                         .list();
     }
 

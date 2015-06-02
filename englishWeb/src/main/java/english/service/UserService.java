@@ -21,8 +21,8 @@ public interface UserService {
     boolean updateUser(String userId, String login, String pass, Role role);
     Role getRoleById(Long id);
     Role getRoleByName(String roleName);
-    List<User> getUsersByPortion(String portion, String startFrom);
-    List<Role> getRolesByPortion(String portion, String startFrom);
+    List<User> getUsersByPortion(int portion, int startFrom);
+    List<Role> getRolesByPortion(int portion, int startFrom);
     User getUserByLogin(String userLogin);
     boolean updateUser(User user);
 }

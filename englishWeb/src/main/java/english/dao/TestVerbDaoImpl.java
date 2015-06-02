@@ -38,10 +38,10 @@ public class TestVerbDaoImpl implements TestVerbDao {
     }
 
     @Override
-    public List<TestVerb> getTestVerbsByPortion(String portion, String startFrom) {
+    public List<TestVerb> getTestVerbsByPortion(int portion, int startFrom) {
         return factory.getCurrentSession().createCriteria(TestVerb.class)
-                .setMaxResults(Integer.parseInt(portion))
-                .setFirstResult(Integer.parseInt(startFrom))
+                .setMaxResults(portion)
+                .setFirstResult(startFrom)
                 .list();
     }
 
