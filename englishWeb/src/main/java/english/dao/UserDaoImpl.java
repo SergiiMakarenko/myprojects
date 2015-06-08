@@ -133,8 +133,33 @@ public class UserDaoImpl implements UserDao {
         if(userTest!=null && userTest.getUserId()!=user.getUserId()) {
             return false;
         }
+
+        User userBefore = (User) factory.getCurrentSession().get(User.class,user.getUserId());
+        Role roleBefore = userBefore.getUserRole();
+        Role role = user.getUserRole();
+
         user = (User) factory.getCurrentSession().merge(user);
         factory.getCurrentSession().update(user);
+        if(!roleBefore.equals(user.getUserRole())){
+            List<User> usersBefore = factory.getCurrentSession().createCriteria(User.class)
+                    .add(Restrictions.eq("userRole", roleBefore))
+                    .list();
+            Set<User> userSet = new HashSet<>();
+            userSet.addAll(usersBefore);
+            roleBefore.setUserSet(userSet);
+            roleBefore = (Role) factory.getCurrentSession().merge(roleBefore);
+            factory.getCurrentSession().update(roleBefore);
+
+            List<User> users = factory.getCurrentSession().createCriteria(User.class)
+                    .add(Restrictions.eq("userRole", role))
+                    .list();
+            userSet = new HashSet<>();
+            userSet.addAll(users);
+            role.setUserSet(userSet);
+            role = (Role) factory.getCurrentSession().merge(role);
+            factory.getCurrentSession().update(role);
+        }
+
         return true;
 
     }

@@ -1,5 +1,7 @@
 package english.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -27,9 +29,11 @@ public class TestVerb {
     @Column (name = "PASTPARTICIPLERESULT")
     private Long pastParticipleResult;
 
+    @JsonIgnore
     @ManyToOne
     private Test test;
 
+    @JsonIgnore
     @ManyToOne
     private IrregularVerb verb;
 

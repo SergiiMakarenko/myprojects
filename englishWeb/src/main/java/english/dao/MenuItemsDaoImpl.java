@@ -70,6 +70,45 @@ public class MenuItemsDaoImpl implements MenuItemsDao {
 
     @Override
     public boolean editMenuItems(Long menuItemsId, String menuItems, String menuItemsCode, Menu menu) {
-        return false;
+        MenuItems menuItemsTest = (MenuItems) factory.getCurrentSession().createCriteria(MenuItems.class)
+                .add(Restrictions.eq("menuItems", menuItems))
+                .add(Restrictions.eq("menuItemsCode",menuItemsCode))
+                .add(Restrictions.eq("menu",menu))
+                .uniqueResult();
+
+        if(menuItemsTest!=null && menuItemsTest.getMenuItemsId()!=menuItemsId) {
+            return false;
+        }
+
+        MenuItems menuItemsBefore = (MenuItems) factory.getCurrentSession().get(MenuItems.class,menuItemsId);
+        Menu menuBefore = menuItemsBefore.getMenu();
+        MenuItems menuItemsNew = menuItemsBefore;
+        menuItemsNew.setMenu(menu);
+        menuItemsNew.setMenuItems(menuItems);
+        menuItemsNew.setMenuItemsCode(menuItemsCode);
+
+        menuItemsNew = (MenuItems) factory.getCurrentSession().merge(menuItemsNew);
+        factory.getCurrentSession().update(menuItemsNew);
+
+        if(!menuBefore.equals(menu)){
+            List<MenuItems> menusBefore = factory.getCurrentSession().createCriteria(MenuItems.class)
+                    .add(Restrictions.eq("menu", menuBefore))
+                    .list();
+            Set<MenuItems> menuItemsSet = new HashSet<>();
+            menuItemsSet.addAll(menusBefore);
+            menuBefore.setMenuItemsSet(menuItemsSet);
+            menuBefore = (Menu) factory.getCurrentSession().merge(menuBefore);
+            factory.getCurrentSession().update(menuBefore);
+
+            List<MenuItems> menus = factory.getCurrentSession().createCriteria(MenuItems.class)
+                    .add(Restrictions.eq("menu", menu))
+                    .list();
+            menuItemsSet = new HashSet<>();
+            menuItemsSet.addAll(menus);
+            menu.setMenuItemsSet(menuItemsSet);
+            menu = (Menu) factory.getCurrentSession().merge(menu);
+            factory.getCurrentSession().update(menu);
+        }
+        return true;
     }
 }

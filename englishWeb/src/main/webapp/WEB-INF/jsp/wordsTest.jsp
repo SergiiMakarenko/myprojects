@@ -19,66 +19,51 @@
             <script>
 
 
-                function checkVerb(){
-                    var verbsPS = document.getElementsByClassName('PS');
-                    var verbsPP = document.getElementsByClassName('PP');
+                function checkWord(){
+                    var wordsUKR = document.getElementsByClassName('UKR');
                     var rows = document.getElementsByClassName('rowValue');
                     var result = 0;
                     var i=0;
                     document.getElementById('start').disabled=false;
                     document.getElementById('check').disabled=true;
-                    var verbId = [];
-                    var pastSimple = [];
-                    var pastParticiple = [];
-                    var pastSimpleResult = [];
-                    var pastParticipleResult = [];
+                    var wordId = [];
+                    var ukrainian = [];
+                    var ukrainianResult = [];
 
-                    <c:forEach var="verb" items="${verbsList}">
-                                $(verbsPS[i]).css('background', 'white');
-                                $(verbsPP[i]).css('background', 'white');
-                                verbId.push("${verb.verbId}");
-                                pastSimple.push(verbsPS[i].value);
-                                pastParticiple.push(verbsPP[i].value);
+                    <c:forEach var="word" items="${wordsList}">
+                                $(wordsUKR[i]).css('background', 'white');
+                                wordId.push("${word.wordId}");
+                                ukrainian.push(wordsUKR[i].value);
 
-                                if(verbsPS[i].value=="${verb.pastSimple}"){
-                                    $(verbsPS[i]).css('background', 'lightgreen');
-                                    pastSimpleResult.push(1);
+                                if(wordsUKR[i].value=="${word.ukrainianWord}"){
+                                    $(wordsUKR[i]).css('background', 'lightgreen');
+                                    ukrainianResult.push(1);
                                     result++;
                                 }else{
-                                    $(verbsPS[i]).css('background', 'orangered');
-                                    verbsPS[i].value = verbsPS[i].value + ' (correct=' + "${verb.pastSimple}" +')';
-                                    pastSimpleResult.push(0);
+                                    $(wordsUKR[i]).css('background', 'orangered');
+                                    wordsUKR[i].value = wordsUKR[i].value + ' (correct=' + "${word.ukrainianWord}" +')';
+                                    ukrainianResult.push(0);
 
-                                }
-                                if(verbsPP[i].value=="${verb.pastParticiple}"){
-                                    $(verbsPP[i]).css('background', 'lightgreen');
-                                    result++;
-                                    pastParticipleResult.push(1);
-                                } else{
-                                    $(verbsPP[i]).css('background', 'orangered');
-                                    verbsPP[i].value = verbsPP[i].value + ' (correct=' + "${verb.pastParticiple}" +')'
-                                    pastParticipleResult.push(0);
                                 }
                         i++;
                     </c:forEach>
 
                             document.getElementById('result').innerHTML=
-                                    'Your result is ' + result + ' from ' + (verbsPP.length)*2;
+                                    'Your result is ' + result + ' from ' + (wordsUKR.length);
 
-                    $.ajax({
-                        dataType:'json',
-                        url:'/verbsAjax?verbListId='+verbId+'&pastSimple='+pastSimple+
-                        '&pastParticiple='+pastParticiple+'&pastSimpleResult='+pastSimpleResult+
-                            '&pastParticipleResult='+pastParticipleResult,
-                        type:'GET',
-                        success: function (data) {
-
-                        },
-                        error: function (a, b, c) {
-                            alert('error:' + a + b + c);
-                        }
-                    });
-
+//                    $.ajax({
+//                        dataType:'json',
+//                        url:'/verbsAjax?verbListId='+verbId+'&pastSimple='+pastSimple+
+//                        '&pastParticiple='+pastParticiple+'&pastSimpleResult='+pastSimpleResult+
+//                            '&pastParticipleResult='+pastParticipleResult,
+//                        type:'GET',
+//                        success: function (data) {
+//
+//                        },
+//                        error: function (a, b, c) {
+//                            alert('error:' + a + b + c);
+//                        }
+//                    });
                 }
 
 
@@ -132,8 +117,8 @@
 
       <form id="paramForm" class="formWork" onsubmit="return checkForEmpty('authTest','error')"
 
-            action="/verbsTest.html" method="post">
-          <a class="promptText"> Choice amount irregular werbs to test: </a>
+            action="/wordsTest.html" method="post">
+          <a class="promptText"> Choice amount words to test: </a>
           <c:if test="${cntWords==null}">
               <input class="authTest" id="range" type="range" min="1" max="15" step="1" name="cntWords"
                      onchange="rangeValue('range','rangeValue')" value="5" > <div class="error" ></div >
@@ -150,18 +135,18 @@
           </c:if>
       </form>
 
-      <h4>${userName}, where are irregular verbs for test: </h4>
+      <h4>${userName}, where are words for test: </h4>
       <table class="resultTable">
           <TR id = "headTable">
 
-              <Th>Infinitive</Th>
-              <Th>PastSimple</Th>
-              <Th>PastParticiple</Th>
+              <Th>English</Th>
+              <Th>Language category</Th>
+              <Th>Ukrainian</Th>
 
           </TR>
           <c:set var="rowIndex" value="0"></c:set>
 
-          <c:forEach var="verb" items="${verbsList}">
+          <c:forEach var="word" items="${wordsList}">
               <c:set var="idName" value=""></c:set>
               <c:set var="rowIndex" value="${rowIndex+1}"></c:set>
               <c:if test="${rowIndex%2!=0}">
@@ -169,16 +154,16 @@
               </c:if>
               <TR id="${idName}" class="rowValue">
 
-                  <TD>${verb.infinitive}</TD>
+                  <TD>${word.englishWord}</TD>
+                  <TD>${word.category.categoryName}</TD>
+                  <TD><input class="UKR" type="text"></TD>
 
-                  <TD><input class="PS" type="text"></TD>
-                  <TD><input class="PP" type="text"></TD>
 
               </TR>
           </c:forEach>
       </table>
 
-      <button id="check" onclick="checkVerb()"> check </button>
+      <button id="check" onclick="checkWord()"> check </button>
       <div id="result"></div>
 
   </div>

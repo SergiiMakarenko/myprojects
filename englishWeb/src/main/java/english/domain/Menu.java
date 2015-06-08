@@ -1,5 +1,6 @@
 package english.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.scene.control.MenuItem;
 
 import javax.persistence.*;
@@ -21,9 +22,11 @@ public class Menu {
     @Column(name = "MENUCATEGORY")
     private String menuCategory;
 
+    @JsonIgnore
     @ManyToOne
     private Role role;
 
+    @JsonIgnore
     @OneToMany
     private Set<MenuItems> menuItemsSet;
 

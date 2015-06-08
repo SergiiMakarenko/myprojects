@@ -202,4 +202,29 @@ public class AdminController {
         return "menuItemsAdd";
     }
 
+    @RequestMapping(value = "/menuItemsEdit", method = {RequestMethod.POST, RequestMethod.GET})
+    public String menuItemsEdit(Model model, String menuItems,String menuItemsCode, Long menuId,Long menuItemsId,
+                               @ModelAttribute("logAmount") int logAmount,
+                               @ModelAttribute("userName") String userName,@ModelAttribute("userRole") String userRole
+            ,@ModelAttribute("map") Map<String,List<MenuItems>> map){
+
+        model.addAttribute("menuItems",menuItems);
+        model.addAttribute("menuItemsCode",menuItemsCode);
+        model.addAttribute("menuId",menuId);
+        model.addAttribute("menuItemsId",menuItemsId);
+        model.addAttribute("menuItemsList",menuService.findAllMenuItems());
+        model.addAttribute("menuList",menuService.findAllMenu());
+
+        if(menuItems==null)
+        return "menuItemsEdit";
+
+        boolean edit = menuService.editMenuItems(menuItemsId,menuItems,menuItemsCode,menuService.getMenuById(menuId));
+        if(edit) {
+            model.addAttribute("RegisterMessage", "Success edit menu items: " + menuItems);
+        } else{
+            model.addAttribute("RegisterMessageFalse", "Failed edit menu items");
+        }
+        return "menuItemsEdit";
+    }
+
 }

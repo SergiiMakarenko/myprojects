@@ -36,8 +36,38 @@
                     var head = document.getElementById("headTableTemp");
 
                     $(head).append($('<Th>'+'Infinitive'+'</Th>'));
-                    $(head).append($('<Th>'+'PastSimple'+'</Th>'));
-                    $(head).append($('<Th>'+'PastParticiple'+'</Th>'));
+                    $(head).append($('<Th>'+'Past Simple answer'+'</Th>'));
+                    $(head).append($('<Th>'+'Past Participle answer'+'</Th>'));
+
+                    var colorPS;
+                    var colorPP;;
+
+                    $.ajax({
+                                datatype: 'json',
+                                url: '/verbTestDetail?testId='+testId,
+                                success: function(data){
+                                    for(i=0;i<data.length;i++){
+                                        colorPS = 'inherit';
+                                        colorPP = 'white';
+                                        $(table).append($('<TR id = "TR'+i+'">'+'</TR>'));
+                                        var row = document.getElementById('TR'+i);
+                                        $(row).append($('<TD>'+data[i].infinitive+ '</TD>'));
+                                        if(data[i].pastSimpleResult==0){
+                                            colorPS = 'orange';
+                                        }
+                                        $(row).append($('<TD>'+data[i].pastSimpleTest+ '</TD>').
+                                                css('background', colorPS));
+                                        $(row).append($('<TD>'+data[i].pastParticipleTest+ '</TD>'));
+                                    }
+
+                                },
+                                error: function(a,b,c){
+                                    alert('error: ' + a+b+c);
+                                }
+                            }
+                    );
+
+
 
                     $(tempDiv).append($('<button id="buttonOk" onclick="deleteDetailView()">'+'OK'+'</button>'));
                 }

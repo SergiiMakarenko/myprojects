@@ -8,10 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by serg on 03.04.15.
@@ -73,7 +70,32 @@ public class WordDaoImpl implements WordDao {
 
     @Override
     public List<Word> getRandomWords(int cntWords) {
-        return null;
+        List<Word> allWords = factory.getCurrentSession().createCriteria(Word.class)
+                .list();
+        if(cntWords>allWords.size()){
+            cntWords=allWords.size();
+            return allWords;
+        }
+
+        List<Integer> indexes = new ArrayList<>();
+        for(int i = 0;i<allWords.size();i++){
+            indexes.add(i);
+        }
+        Double cntRandom =  allWords.size()*1.0;
+        List<Integer> lottery = new ArrayList<>();
+        for(int i = 0;i<cntWords;i++){
+            int random = (int) (Math.random()*cntRandom);
+
+            lottery.add(indexes.get(random));
+            indexes.remove(random);
+            cntRandom--;
+        }
+
+        List<Word> lotteryWords = new ArrayList<>();
+        for(int i = 0;i<cntWords;i++){
+            lotteryWords.add(allWords.get(lottery.get(i)));
+        }
+        return lotteryWords;
     }
 
     @Override

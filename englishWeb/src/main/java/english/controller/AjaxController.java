@@ -1,10 +1,8 @@
 package english.controller;
 
 import english.domain.*;
-import english.service.IrregularVerbService;
-import english.service.TestService;
-import english.service.UserService;
-import english.service.WordService;
+import english.results.VerbsDetail;
+import english.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +30,9 @@ public class AjaxController {
 
     @Autowired
     private TestService testService;
+
+    @Autowired
+    private MenuService menuService;
 
     @RequestMapping(value = "/userAjax", method = { RequestMethod.GET})
     public @ResponseBody
@@ -87,8 +88,7 @@ public class AjaxController {
             return category;
         }
         if(wordId!=null && !wordId.equals("")) {
-            Word word = wordService.getWordById(wordId);
-            Category category = word.getCategory();
+            Category category = wordService.getWordById(wordId).getCategory();
             return category;
         }
         return null;
@@ -104,6 +104,43 @@ public class AjaxController {
                 pastSimpleResult,pastParticipleResult);
 
         return verbListId;
+    }
+
+    @RequestMapping(value = "/verbTestDetail", method = { RequestMethod.GET})
+    public @ResponseBody
+    List<VerbsDetail> verbTestDetail( Long testId){
+        if(testId!=null && !("").equals(testId)) {
+            List<TestVerb> verbs = testService.getTestVerbsByTest(testService.getTestById(testId));
+            List<VerbsDetail> details = new ArrayList<>();
+            for(TestVerb verb:verbs){
+                String infinitive = verb.getVerb().getInfinitive();
+                String pastSimpleTest = verb.getPastSimpleResult()==1? verb.getPastSimpleTest():
+                        verb.getPastSimpleTest() + " (correct = " + verb.getVerb().getPastSimple() +" )";
+                String pastParticipleTest = verb.getPastParticipleResult()==1? verb.getPastParticipleTest():
+                        verb.getPastParticipleTest() + " (correct = " + verb.getVerb().getPastParticiple() + " )";
+                details.add(new VerbsDetail(infinitive,pastSimpleTest,pastParticipleTest,verb.getPastSimpleResult(),
+                        verb.getPastParticipleResult()));
+            }
+            return details;
+        }
+
+        return null;
+    }
+
+    @RequestMapping(value = "/menuAjax", method = { RequestMethod.GET})
+    public @ResponseBody
+    Menu menuAjax( Long menuItemsId){
+        if(menuItemsId!=null && !("").equals(menuItemsId))
+            return menuService.getMenuItemsById(menuItemsId).getMenu();
+        return null;
+    }
+
+    @RequestMapping(value = "/menuItemsAjax", method = { RequestMethod.GET})
+    public @ResponseBody
+    MenuItems menuItemsAjax( Long menuItemsId){
+        if(menuItemsId!=null && !("").equals(menuItemsId))
+            return menuService.getMenuItemsById(menuItemsId);
+        return null;
     }
 
 }

@@ -27,6 +27,7 @@ body{
 }
 .resultTable{
     border-collapse: collapse;
+    margin: 5px;
 }
 .resultTable th{
     text-align: center;
@@ -191,9 +192,9 @@ ul.dropdown li.dropdown-top:hover .dropdown-inside {
 }
 #viewDetail{
     position: fixed;
-    width: 70%;
+    width: 50%;
     height: 50%;
-    left: 15%;
+    left: 25%;
     top: 25%;
     z-index: 3;
     background: aliceblue;
@@ -202,7 +203,7 @@ ul.dropdown li.dropdown-top:hover .dropdown-inside {
 #buttonOk{
     background: lightgreen;
     font-size: x-large;
-    margin: 10px;
+    margin: 5px;
     border-radius: 5px;
 
 }

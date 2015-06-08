@@ -76,7 +76,7 @@
             <input class="authTest" type="text" name="login" value="Sergii" > <a class="error" ></a >
             <br>
             <div class="promptText"> Input your password*: </div>
-            <input class="authTest" type="password" name="pass" value="eng"> <a class="error" ></a >
+            <input class="authTest" type="password" name="pass" value=""> <a class="error" ></a >
             <BR>
             <input class="buttonLogIn" type="submit" value="">
             <div class="error"> ${tryAgain}</div>

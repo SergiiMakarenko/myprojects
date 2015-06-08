@@ -111,6 +111,10 @@ Locale locale = Locale.UK;
 
             if (create != null) {
                 model.addAttribute("RegisterMessage", "Success create new word: " + english+" = " + ukrainian);
+                model.addAttribute("english","");
+                model.addAttribute("ukrainian","");
+                model.addAttribute("transcription","");
+                model.addAttribute("categoryId","");
             } else {
                 model.addAttribute("RegisterMessageFalse", "Failed create new word: " + english+" = " + ukrainian);
             }
@@ -171,6 +175,20 @@ Locale locale = Locale.UK;
             }
         }
         return "wordEdit";
+    }
+
+    @RequestMapping(value = "/wordsTest", method = {RequestMethod.POST, RequestMethod.GET})
+    public String wordsTest(Model model, Integer cntWords,  @ModelAttribute("logAmount") int logAmount,
+                            @ModelAttribute("userName") String userName){
+
+        model.addAttribute("cntWords", cntWords);
+
+        if (cntWords!=null) {
+            List<Word> words = wordService.getRandomWords(cntWords);
+            model.addAttribute("wordsList", words);
+        }
+
+        return "wordsTest";
     }
 
 }
