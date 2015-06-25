@@ -14,8 +14,10 @@ public class ResultIrregularVerbs {
     private Double pastParticipleEffectiveness;
     private Double effectiveness;
 
-    public ResultIrregularVerbs(Test test, Long countWordTest, Long correctPastSimpleCount, Double pastSimpleEffectiveness,
-                                Long correctPastParticipleCount, Double pastParticipleEffectiveness, Double effectiveness) {
+    public ResultIrregularVerbs(Test test, Long countWordTest, Long correctPastSimpleCount,
+                                Double pastSimpleEffectiveness,
+                                Long correctPastParticipleCount, Double pastParticipleEffectiveness,
+                                Double effectiveness) {
         this.test = test;
         this.countWordTest = countWordTest;
         this.correctPastSimpleCount = correctPastSimpleCount;

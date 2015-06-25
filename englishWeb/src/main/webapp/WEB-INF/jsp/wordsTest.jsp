@@ -129,7 +129,6 @@
           <c:if test="${cntWords!=null}">
               <input class="authTest" id="range" type="range" min="1" max="15" step="1" name="cntWords"
                      onchange="rangeValue('range','rangeValue')" value="${cntWords}" > <div class="error" ></div >
-
               <a id="rangeValue">${cntWords}</a><BR>
               <input id="start" disabled type="submit" value="Start">
           </c:if>

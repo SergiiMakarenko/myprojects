@@ -3,17 +3,17 @@ package english.results;
 /**
  * Created by serg on 05.06.15.
  */
-public class VerbsDetail {
+public class VerbsTestDetail {
     private String infinitive;
     private String pastSimpleTest;
     private String pastParticipleTest;
     private Long pastSimpleResult;
     private Long pastParticipleResult;
 
-    public VerbsDetail(){}
+    public VerbsTestDetail(){}
 
-    public VerbsDetail(String infinitive, String pastSimpleTest, String pastParticipleTest, Long pastSimpleResult,
-                       Long pastParticipleResult) {
+    public VerbsTestDetail(String infinitive, String pastSimpleTest, String pastParticipleTest, Long pastSimpleResult,
+                           Long pastParticipleResult) {
         this.infinitive = infinitive;
         this.pastSimpleTest = pastSimpleTest;
         this.pastParticipleTest = pastParticipleTest;

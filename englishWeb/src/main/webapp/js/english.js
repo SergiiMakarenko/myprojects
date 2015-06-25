@@ -93,20 +93,43 @@ $(document).ready(function(){
     $(node).append($('<div class="logOut" onclick="logOut()"></div>'));
 
 
-    var effectiveness = document.getElementsByClassName('resultTest');
-    for(i=0;i<effectiveness.length;i++){
+    var results = document.getElementsByClassName('resultTest');
+    for(i=0;i<results.length;i++){
         var red= 0;
         var green = 0;
 
-        if(effectiveness[i].innerHTML<0.5){
-            red = 200 + 55*(effectiveness[i].innerHTML*2);
+        if(results[i].innerHTML<0.7){
+            red = 185 + 100*(results[i].innerHTML*2);
         } else{
-            green =255 - 155*((effectiveness[i].innerHTML-0.5)*2);
+            green =230 - 100*((results[i].innerHTML-0.7)*2);
         }
         red =  parseInt(red);
         green= parseInt(green);
-        $(effectiveness[i]).css('color', 'rgb('+red+','+green+',0)');
-        effectiveness[i].innerHTML = effectiveness[i].innerHTML*100 + ' %';
+        $(results[i]).css('color', 'rgb('+red+','+green+',0)');
+        results[i].innerHTML = (results[i].innerHTML*100).toFixed(0) + ' %';
     }
 
+
+    var effectiveness = document.getElementsByClassName('effectiveness');
+    var effectivenessIsNull = document.getElementsByClassName('effectivenessIsNull');
+    var countOfColumn=effectiveness.length/effectivenessIsNull.length;
+
+        for(i=0;i<effectivenessIsNull.length;i++){
+            if(effectivenessIsNull[i].innerHTML !=''){
+                for(j=0;j<countOfColumn;j++){
+                    var green = 0;
+                    var red= 0;
+                    if(effectiveness[i*countOfColumn+j].innerHTML<0.7 ){
+                        red = 185 + 100*(effectiveness[i*countOfColumn+j].innerHTML*2);
+                    } else{
+                        green =230 - 100*((effectiveness[i*countOfColumn+j].innerHTML-0.7)*2);
+                    }
+                    red =  parseInt(red);
+                    green= parseInt(green);
+                    $(effectiveness[i*countOfColumn+j]).css('color', 'rgb('+red+','+green+',0)');
+                effectiveness[i*countOfColumn+j].innerHTML = (effectiveness[i*countOfColumn+j].innerHTML*100).toFixed(0)
+                + ' %';
+            }
+        }
+    }
 });

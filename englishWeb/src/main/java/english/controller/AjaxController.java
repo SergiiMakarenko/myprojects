@@ -1,12 +1,11 @@
 package english.controller;
 
 import english.domain.*;
-import english.results.VerbsDetail;
+import english.results.VerbsTestDetail;
 import english.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -108,17 +107,18 @@ public class AjaxController {
 
     @RequestMapping(value = "/verbTestDetail", method = { RequestMethod.GET})
     public @ResponseBody
-    List<VerbsDetail> verbTestDetail( Long testId){
+    List<VerbsTestDetail> verbTestDetail( Long testId){
+
         if(testId!=null && !("").equals(testId)) {
             List<TestVerb> verbs = testService.getTestVerbsByTest(testService.getTestById(testId));
-            List<VerbsDetail> details = new ArrayList<>();
+            List<VerbsTestDetail> details = new ArrayList<>();
             for(TestVerb verb:verbs){
                 String infinitive = verb.getVerb().getInfinitive();
                 String pastSimpleTest = verb.getPastSimpleResult()==1? verb.getPastSimpleTest():
                         verb.getPastSimpleTest() + " (correct = " + verb.getVerb().getPastSimple() +" )";
                 String pastParticipleTest = verb.getPastParticipleResult()==1? verb.getPastParticipleTest():
                         verb.getPastParticipleTest() + " (correct = " + verb.getVerb().getPastParticiple() + " )";
-                details.add(new VerbsDetail(infinitive,pastSimpleTest,pastParticipleTest,verb.getPastSimpleResult(),
+                details.add(new VerbsTestDetail(infinitive,pastSimpleTest,pastParticipleTest,verb.getPastSimpleResult(),
                         verb.getPastParticipleResult()));
             }
             return details;

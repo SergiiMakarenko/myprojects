@@ -23,7 +23,7 @@
                 }
                 function preview(){
                     if(${startPosition>0}){
-                        window.location = "/roles.html?portion=${portion}&startPosition=${startPosition-portion}"
+                        window.location ="/words.html?portion=${portion}&startPosition=${startPosition-portion}"
                     }
                 }
 

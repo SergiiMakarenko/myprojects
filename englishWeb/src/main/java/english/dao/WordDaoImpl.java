@@ -4,10 +4,13 @@ import english.domain.Category;
 import english.domain.User;
 import english.domain.Word;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.OrderBy;
+import javax.persistence.criteria.Order;
 import java.util.*;
 
 /**
@@ -57,6 +60,7 @@ public class WordDaoImpl implements WordDao {
     @Override
     public List<Word> findAll() {
         return factory.getCurrentSession().createCriteria(Word.class)
+                .addOrder(org.hibernate.criterion.Order.asc("englishWord"))
                 .list();
     }
 
@@ -105,7 +109,7 @@ public class WordDaoImpl implements WordDao {
                 .add(Restrictions.eq("englishWord",eng))
                 .add(Restrictions.eq("ukrainianWord",ukr))
                 .uniqueResult();
-        if(testWord!=null && testWord.getWordId()!=wordId) {
+        if(testWord!=null && !testWord.getWordId().equals(wordId)) {
             return false;
         }
         Word word = getWordById(wordId);

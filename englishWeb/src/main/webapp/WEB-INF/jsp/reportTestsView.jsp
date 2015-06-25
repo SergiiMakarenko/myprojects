@@ -30,6 +30,9 @@
                 function detailVerbs(testId){
                     $('body').append($('<div id="viewDetail">'+'</div>'));
                     var tempDiv = document.getElementById("viewDetail");
+//                    $(tempDiv).append($('<div >' + 'd' + '</div>').css({'width': '10%','height': '100%',
+//                            'background':'red', 'display': 'inline-block'}));
+                    $(tempDiv).append($('<button id="buttonOk" onclick="deleteDetailView()">'+'OK'+'</button>'));
                     $(tempDiv).append($('<table class="resultTable" id = "tempTable">' + '</table>'));
                     var table = document.getElementById("tempTable");
                     $(table).append($('<TR id = "headTableTemp">'+'</TR>'));
@@ -40,7 +43,7 @@
                     $(head).append($('<Th>'+'Past Participle answer'+'</Th>'));
 
                     var colorPS;
-                    var colorPP;;
+                    var colorPP;
 
                     $.ajax({
                                 datatype: 'json',
@@ -48,16 +51,23 @@
                                 success: function(data){
                                     for(i=0;i<data.length;i++){
                                         colorPS = 'inherit';
-                                        colorPP = 'white';
+                                        colorPP = 'inherit';
                                         $(table).append($('<TR id = "TR'+i+'">'+'</TR>'));
                                         var row = document.getElementById('TR'+i);
                                         $(row).append($('<TD>'+data[i].infinitive+ '</TD>'));
                                         if(data[i].pastSimpleResult==0){
                                             colorPS = 'orange';
+
                                         }
                                         $(row).append($('<TD>'+data[i].pastSimpleTest+ '</TD>').
                                                 css('background', colorPS));
-                                        $(row).append($('<TD>'+data[i].pastParticipleTest+ '</TD>'));
+
+                                        if(data[i].pastParticipleResult==0) {
+                                            colorPP = 'orange';
+                                        }
+                                        $(row).append($('<TD>'+data[i].pastParticipleTest+ '</TD>').
+                                                css('background', colorPP));
+
                                     }
 
                                 },
@@ -68,8 +78,6 @@
                     );
 
 
-
-                    $(tempDiv).append($('<button id="buttonOk" onclick="deleteDetailView()">'+'OK'+'</button>'));
                 }
 
                 function deleteDetailView(){

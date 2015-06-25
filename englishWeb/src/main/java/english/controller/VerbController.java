@@ -2,6 +2,7 @@ package english.controller;
 
 import english.domain.IrregularVerb;
 import english.results.ResultIrregularVerbs;
+import english.results.VerbsUserEffect;
 import english.service.IrregularVerbService;
 import english.service.TestService;
 import english.service.UserService;
@@ -33,17 +34,18 @@ public class VerbController {
     private UserService userService;
 
     @RequestMapping(value = "/verbs", method = {RequestMethod.POST, RequestMethod.GET})
-    public String verbs(Model model, Integer portion, Integer startPosition, @ModelAttribute("logAmount") int logAmount,
-                       @ModelAttribute("userName") String userName){
-
+    public String verbs(Model model, Integer portion, Integer startPosition, Double effectiveness,
+                        @ModelAttribute("logAmount") int logAmount, @ModelAttribute("userName") String userName){
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
+        model.addAttribute("effectiveness", effectiveness);
 
         if (portion!=null) {
             if(startPosition==null) startPosition=0;
-
-            int cntVerbs = irregularVerbService.findAllIrregularVerbs().size();
-            List<IrregularVerb> verbs = irregularVerbService.getVerbsByPortion(portion,startPosition);
+            int cntVerbs = irregularVerbService.getSizeVerbsByUserEff(userService.getUserByLogin(userName),
+                    effectiveness);
+            List<VerbsUserEffect> verbs = irregularVerbService.getVerbsByPortionByUser(portion, startPosition,
+                    userService.getUserByLogin(userName),effectiveness);
             model.addAttribute("verbsList", verbs);
             model.addAttribute("fullList", verbs.size()+startPosition
                     == cntVerbs);
@@ -54,16 +56,14 @@ public class VerbController {
     }
 
     @RequestMapping(value = "/verbsTest", method = {RequestMethod.POST, RequestMethod.GET})
-    public String verbsTest(Model model, String cntWords, String startPosition, @ModelAttribute("logAmount") int logAmount,
-                        @ModelAttribute("userName") String userName){
+    public String verbsTest(Model model, Integer wordsAmount, Double effectiveness,
+                            @ModelAttribute("logAmount") int logAmount,@ModelAttribute("userName") String userName){
 
-        model.addAttribute("cntWords", cntWords);
-
-        if (cntWords!=null) {
-            if(startPosition==null){
-                startPosition="0";
-            }
-            List<IrregularVerb> verbs = irregularVerbService.getRandomIrregularVerbs(Integer.parseInt(cntWords));
+        model.addAttribute("wordsAmount", wordsAmount);
+        model.addAttribute("effectiveness", effectiveness);
+        if (wordsAmount!=null) {
+            List<VerbsUserEffect> verbs = irregularVerbService.getRandomIrregularVerbs(wordsAmount,
+                    userService.getUserByLogin(userName), effectiveness);
             model.addAttribute("verbsList", verbs);
         }
         return "verbsTest";
@@ -97,7 +97,7 @@ public class VerbController {
 
         if(infinitive!=null) {
             Boolean update = irregularVerbService.verbEdit(Long.parseLong(verbId),infinitive,pastSimple,pastParticiple);
-            if (update == true) {
+            if (update) {
                 model.addAttribute("RegisterMessage", "Success edit verb: " + infinitive);
                 model.addAttribute("verbList",irregularVerbService.findAllIrregularVerbs());
             } else {
@@ -108,8 +108,8 @@ public class VerbController {
     }
 
     @RequestMapping(value = "/reportTestsView", method = {RequestMethod.POST, RequestMethod.GET})
-    public String reportTestsView(Model model, String portion, String startPosition, @ModelAttribute("logAmount") int logAmount,
-                        @ModelAttribute("userName") String userName){
+    public String reportTestsView(Model model, String portion, String startPosition, @ModelAttribute("logAmount")
+                        int logAmount, @ModelAttribute("userName") String userName){
 
         model.addAttribute("portion", portion);
         model.addAttribute("startPosition", startPosition);
@@ -122,12 +122,13 @@ public class VerbController {
             int cntRows = testService.getTestResults("", userService.getUserByLogin(userName), new Date(115, 04, 01),
                     new Date(115, 11, 31)).size();
             int startFrom = Integer.parseInt(startPosition);
-            List<ResultIrregularVerbs> resultIrregularVerbses = testService.getTestResults("", userService.getUserByLogin(userName),
+            List<ResultIrregularVerbs> resultIrregularVerbs = testService.getTestResults("",
+                    userService.getUserByLogin(userName),
                     new Date(115, 04, 01), new Date(115, 11, 31));
-            model.addAttribute("testsList", resultIrregularVerbses);
-            model.addAttribute("fullList", resultIrregularVerbses.size()+startFrom
+            model.addAttribute("testsList", resultIrregularVerbs);
+            model.addAttribute("fullList", resultIrregularVerbs.size()+startFrom
                     == cntRows);
-            model.addAttribute("message", startFrom+1 + "-" + (resultIrregularVerbses.size()+startFrom) +
+            model.addAttribute("message", startFrom+1 + "-" + (resultIrregularVerbs.size()+startFrom) +
                     " from " + cntRows);
         }
         return "reportTestsView";

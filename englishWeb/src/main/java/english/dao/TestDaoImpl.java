@@ -72,7 +72,6 @@ public class TestDaoImpl implements TestDao {
                 .createAlias("test", "testAlias")
                 .add(Restrictions.eq("testAlias.user", user))
                 .add(Restrictions.between("testAlias.testDate", dateFrom, dateTo))
-
                 .setProjection(Projections.projectionList()
                         .add(Projections.count("testVerbId"))
                         .add(Projections.sum("pastSimpleResult"))
@@ -102,7 +101,8 @@ public class TestDaoImpl implements TestDao {
             string = String.format("%8.2f", pastParticipleEffectiveness);
             pastParticipleEffectiveness = Double.parseDouble(string);
 
-                    results.add(new ResultIrregularVerbs(test,countWordTest,correctPastSimpleCount, pastSimpleEffectiveness,
+                    results.add(new ResultIrregularVerbs(test,countWordTest,correctPastSimpleCount,
+                            pastSimpleEffectiveness,
                     correctPastParticipleCount,pastParticipleEffectiveness,effectiveness));
         }
 

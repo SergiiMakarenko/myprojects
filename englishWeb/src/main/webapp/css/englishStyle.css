@@ -43,16 +43,22 @@ body{
     font-size: medium;
     color: darkslategrey;
 }
-#whiteRow{
-   background: rgb(225,225,225);
+.resultTable tr{
+    background: lightblue;
 }
+
+#whiteRow{
+   background: whitesmoke;
+}
+
 .promptText{
     font-size: small;
     font-style: italic;
     color: black;
+    /*background: rgb(0,150,0);*/
 }
 div.Horizontal{
-    background: lightsalmon;
+    background: lightyellow;
     height: 10%;
     /*padding: 1px;*/
     /*border: 2px solid black;*/
@@ -191,14 +197,17 @@ ul.dropdown li.dropdown-top:hover .dropdown-inside {
     left: 0;
 }
 #viewDetail{
+    display: inline-block;
     position: fixed;
     width: 50%;
     height: 50%;
     left: 25%;
     top: 25%;
     z-index: 3;
-    background: aliceblue;
+    background: lightblue;
     border-radius: 15px;
+    border: solid 3px blue;
+    overflow: auto;
 }
 #buttonOk{
     background: lightgreen;

@@ -2,6 +2,8 @@ package english.service;
 
 import english.dao.IrregularVerbDao;
 import english.domain.IrregularVerb;
+import english.domain.User;
+import english.results.VerbsUserEffect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +38,8 @@ public class IrregularVerbServiceImpl implements IrregularVerbService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<IrregularVerb> getRandomIrregularVerbs(int cntWords) {
-        return irregularVerbDao.getRandomIrregularVerbs(cntWords);
+    public List<VerbsUserEffect> getRandomIrregularVerbs(int cntWords,User user, Double effectiveness) {
+        return irregularVerbDao.getRandomIrregularVerbs(cntWords, user, effectiveness);
     }
 
     @Override
@@ -58,4 +60,15 @@ public class IrregularVerbServiceImpl implements IrregularVerbService {
         return irregularVerbDao.updateVerb(irregularVerb);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<VerbsUserEffect> getVerbsByPortionByUser(int portion, int startFrom, User user, Double effectiveness) {
+        return irregularVerbDao.getVerbsByPortionByUser(portion, startFrom, user,effectiveness);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int getSizeVerbsByUserEff(User user, Double effectiveness) {
+        return irregularVerbDao.getSizeVerbsByUserEff(user, effectiveness);
+    }
 }
