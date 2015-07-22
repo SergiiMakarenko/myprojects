@@ -1,10 +1,11 @@
 package english.service;
 
-import english.dao.CategoryDao;
-import english.dao.WordDao;
+import english.dao.interfaces.CategoryDao;
+import english.dao.interfaces.WordDao;
 import english.domain.Category;
 import english.domain.User;
 import english.domain.Word;
+import english.results.WordUserEffect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by serg on 07.05.15.
+ * @author Sergii Makarenko
  */
 @Service
 public class WordServiceImpl implements WordService {
@@ -95,5 +96,30 @@ public class WordServiceImpl implements WordService {
     @Transactional(readOnly = true)
     public Word getWordById(Long wordId) {
         return wordDao.getWordById(wordId);
+    }
+
+    @Override
+    @Transactional
+    public List<Word> getWordsByPortionUser(int portion, int startFrom, User user, User admin) {
+        return wordDao.getWordsByPortionUser(portion, startFrom, user, admin);
+    }
+
+    @Override
+    @Transactional
+    public List<Word> findAllWordsByUser(User user, User admin) {
+        return wordDao.findAllByUser(user, admin);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<WordUserEffect> getWordsByPortionByUserByEffect(int portion, int startFrom, User user,
+                                                                User admin, Double effectiveness) {
+        return wordDao.getWordsByPortionByUserByEffect(portion, startFrom, user, admin, effectiveness);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<WordUserEffect> getRandomWordsByUserEffect(int cntWords, User user, User admin, Double effectiveness) {
+        return wordDao.getRandomWordsByUserEffect(cntWords, user, admin, effectiveness);
     }
 }

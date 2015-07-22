@@ -1,5 +1,6 @@
-package english.dao;
+package english.dao.implementation;
 
+import english.dao.interfaces.TestDao;
 import english.domain.Test;
 import english.domain.TestVerb;
 import english.domain.User;
@@ -15,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by serg on 14.05.15.
+ * @author Sergii Makarenko
  */
 @Repository
 public class TestDaoImpl implements TestDao {
@@ -68,7 +69,8 @@ public class TestDaoImpl implements TestDao {
     @Override
     public List<ResultIrregularVerbs> getTestResults(String testName, User user, Date dateFrom, Date dateTo) {
         List<ResultIrregularVerbs> results = new ArrayList<>();
-        Iterator iterator = factory.getCurrentSession().createCriteria(TestVerb.class, "testVerb")
+
+        for (Object object : factory.getCurrentSession().createCriteria(TestVerb.class, "testVerb")
                 .createAlias("test", "testAlias")
                 .add(Restrictions.eq("testAlias.user", user))
                 .add(Restrictions.between("testAlias.testDate", dateFrom, dateTo))
@@ -80,30 +82,27 @@ public class TestDaoImpl implements TestDao {
                         .add(Projections.avg("pastParticipleResult"))
                         .add(Projections.groupProperty("test"))
                         .add(Projections.groupProperty("testAlias.testDate")))
-                        .addOrder(Order.desc("testAlias.testDate"))
-                .list()
-                .iterator();
+                .addOrder(Order.desc("testAlias.testDate"))
+                .list()) {
 
-        while (iterator.hasNext()){
-            Object[]objects = (Object[]) iterator.next();
-
+            Object[] objects = (Object[]) object;
             Test test = (Test) objects[5];
             Long countWordTest = (Long) objects[0];
             Long correctPastSimpleCount = (Long) objects[1];
             Double pastSimpleEffectiveness = (Double) objects[3];
-            Long correctPastParticipleCount=(Long) objects[2];
+            Long correctPastParticipleCount = (Long) objects[2];
             Double pastParticipleEffectiveness = (Double) objects[4];
-            Double effectiveness = (pastParticipleEffectiveness+pastSimpleEffectiveness)/2;
-            String string =String.format("%8.2f", effectiveness);
+            Double effectiveness = (pastParticipleEffectiveness + pastSimpleEffectiveness) / 2;
+            String string = String.format("%8.2f", effectiveness);
             effectiveness = Double.parseDouble(string);
             string = String.format("%8.2f", pastSimpleEffectiveness);
             pastSimpleEffectiveness = Double.parseDouble(string);
             string = String.format("%8.2f", pastParticipleEffectiveness);
             pastParticipleEffectiveness = Double.parseDouble(string);
 
-                    results.add(new ResultIrregularVerbs(test,countWordTest,correctPastSimpleCount,
-                            pastSimpleEffectiveness,
-                    correctPastParticipleCount,pastParticipleEffectiveness,effectiveness));
+            results.add(new ResultIrregularVerbs(test, countWordTest, correctPastSimpleCount,
+                    pastSimpleEffectiveness,
+                    correctPastParticipleCount, pastParticipleEffectiveness, effectiveness));
         }
 
         return results;

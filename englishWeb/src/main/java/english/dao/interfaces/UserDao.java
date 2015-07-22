@@ -1,4 +1,4 @@
-package english.dao;
+package english.dao.interfaces;
 
 import english.domain.Role;
 import english.domain.User;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by serg on 03.04.15.
+ * @author Sergii Makarenko
  */
 @Repository
 public interface UserDao {

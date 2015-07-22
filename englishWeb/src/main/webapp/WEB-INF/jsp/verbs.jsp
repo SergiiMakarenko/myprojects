@@ -74,21 +74,22 @@
   </div>
   <div id="mainBlock">
       <form class="formWork" action="/verbs.html" method="post">
-          <a class="promptText"> Choice amount words to view: </a>
-          <c:if test="${portion==null}">
-              <input class="viewVerbs" id="range" type="range" min="5" max="50" step="5" name="portion"
-                     onchange="rangeValue('range','rangeValue')" value="15" > <div class="error" ></div >
-              <a id="rangeValue">15</a>
-          </c:if>
+          <div class="divSubMenu"> <a class="promptText"> Choice amount words to view: </a> </div>
 
+          <div class="divSubMenu">
+              <c:set var="port" value="20"></c:set>
           <c:if test="${portion!=null}">
-              <input class="viewVerbs" id="range" type="range" min="5" max="50" step="5" name="portion"
-                     onchange="rangeValue('range','rangeValue')" value="${portion}" > <div class="error" ></div >
-              <a id="rangeValue">${portion}</a>
+              <c:set var="port" value="${portion}"></c:set>
           </c:if>
+              <input class="viewVerbs" id="range" type="range" min="5" max="50" step="5" name="portion"
+                     onchange="rangeValue('range','rangeValue')" value="${port}" > <div class="error" ></div >
+              <a id="rangeValue">${port}</a>
+          </div>
           <BR>
 
-          <a class="promptText"> Choice the max effectiveness: </a>
+
+          <div class="divSubMenu"> <a class="promptText"> Choice the max effectiveness: </a> </div>
+          <div class="divSubMenu">
           <c:set var="eff" value="0.75"></c:set>
           <c:if test="${effectiveness!=null}">
               <c:set var="eff" value="${effectiveness}"></c:set>
@@ -96,6 +97,7 @@
           <input class="viewVerbs" id="effectiveness" type="range" min="0" max="1" step="0.05" name="effectiveness"
                  onchange="rangeValue('effectiveness','effectivenessValue')" value="${eff}">
           <a id="effectivenessValue">${eff}</a>
+          </div>
           <BR>
 
 

@@ -1,6 +1,5 @@
 package english.domain;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,12 +7,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * Created by serg on 03.04.15.
+ * @author SergiiMakarenko
+ * Entity of users
  */
 @Entity
 @Table(name = "USERS")
 public class User {
-
 
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "USER_SEQ", allocationSize = 1, initialValue = 1)
@@ -40,23 +39,18 @@ public class User {
     private Role userRole;
 
     public User(){
-
     }
 
     public User(String userLogin, String userPassword, Role role) {
         this.userLogin = userLogin;
         this.userPassword = userPassword;
-        this.words = new HashSet<Word>();
+        this.words = new HashSet<>();
         this.userRole=role;
         this.testSet =new HashSet<>();
     }
 
     public Long getUserId() {
         return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getUserLogin() {

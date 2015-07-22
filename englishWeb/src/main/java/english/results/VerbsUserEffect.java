@@ -3,13 +3,14 @@ package english.results;
 import english.domain.IrregularVerb;
 
 /**
- * Created by serg on 18.06.15.
+ * @author Sergii Makarenko
+ * Efectiveness of irregular verbs tests by user
  */
 public class VerbsUserEffect {
     private IrregularVerb verb;
-    Long amount;
-    Double effectivenessPS;
-    Double effectivenessPP;
+    private Long amount;
+    private Double effectivenessPS;
+    private Double effectivenessPP;
 
     public VerbsUserEffect(IrregularVerb verb, Long amount, Double effectivenessPS, Double effectivenessPP) {
         this.verb = verb;
@@ -38,16 +39,8 @@ public class VerbsUserEffect {
         return effectivenessPS;
     }
 
-    public void setEffectivenessPS(Double effectivenessPS) {
-        this.effectivenessPS = effectivenessPS;
-    }
-
     public Double getEffectivenessPP() {
         return effectivenessPP;
-    }
-
-    public void setEffectivenessPP(Double effectivenessPP) {
-        this.effectivenessPP = effectivenessPP;
     }
 
     @Override

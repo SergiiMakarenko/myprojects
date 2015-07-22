@@ -1,0 +1,1 @@
+export PATH=$PATH:/home/serg/Install/apache-maven-3.3.3/bin

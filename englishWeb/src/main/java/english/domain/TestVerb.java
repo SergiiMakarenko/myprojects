@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
- * Created by serg on 14.05.15.
+ * @author Sergii Makarenko
+ * Entity of results of tests irregular verbs on web site
  */
 @Entity
 @Table(name = "TESTVERBS")
@@ -53,40 +54,20 @@ public class TestVerb {
         return testVerbId;
     }
 
-    public void setTestVerbId(Long testVerbId) {
-        this.testVerbId = testVerbId;
-    }
-
     public String getPastSimpleTest() {
         return pastSimpleTest;
-    }
-
-    public void setPastSimpleTest(String pastSimpleTest) {
-        this.pastSimpleTest = pastSimpleTest;
     }
 
     public String getPastParticipleTest() {
         return pastParticipleTest;
     }
 
-    public void setPastParticipleTest(String pastParticipleTest) {
-        this.pastParticipleTest = pastParticipleTest;
-    }
-
     public Long getPastSimpleResult() {
         return pastSimpleResult;
     }
 
-    public void setPastSimpleResult(Long pastSimpleResult) {
-        this.pastSimpleResult = pastSimpleResult;
-    }
-
     public Long getPastParticipleResult() {
         return pastParticipleResult;
-    }
-
-    public void setPastParticipleResult(Long pastParticipleResult) {
-        this.pastParticipleResult = pastParticipleResult;
     }
 
     public Test getTest() {
@@ -125,11 +106,14 @@ public class TestVerb {
 
         TestVerb testVerb = (TestVerb) o;
 
-        if (pastParticipleResult != null ? !pastParticipleResult.equals(testVerb.pastParticipleResult) : testVerb.pastParticipleResult != null)
+        if (pastParticipleResult != null ? !pastParticipleResult.equals(testVerb.pastParticipleResult) :
+                testVerb.pastParticipleResult != null)
             return false;
-        if (pastParticipleTest != null ? !pastParticipleTest.equals(testVerb.pastParticipleTest) : testVerb.pastParticipleTest != null)
+        if (pastParticipleTest != null ? !pastParticipleTest.equals(testVerb.pastParticipleTest) :
+                testVerb.pastParticipleTest != null)
             return false;
-        if (pastSimpleResult != null ? !pastSimpleResult.equals(testVerb.pastSimpleResult) : testVerb.pastSimpleResult != null)
+        if (pastSimpleResult != null ? !pastSimpleResult.equals(testVerb.pastSimpleResult) :
+                testVerb.pastSimpleResult != null)
             return false;
         if (pastSimpleTest != null ? !pastSimpleTest.equals(testVerb.pastSimpleTest) : testVerb.pastSimpleTest != null)
             return false;

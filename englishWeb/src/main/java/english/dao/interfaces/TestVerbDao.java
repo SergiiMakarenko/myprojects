@@ -1,4 +1,4 @@
-package english.dao;
+package english.dao.interfaces;
 
 import english.domain.IrregularVerb;
 import english.domain.Test;
@@ -7,7 +7,7 @@ import english.domain.TestVerb;
 import java.util.List;
 
 /**
- * Created by serg on 14.05.15.
+ * @author Sergii Makarenko
  */
 public interface TestVerbDao {
     Long createTestVerb(String pastSimpleTest, String pastParticipleTest, Long pastSimpleResult,

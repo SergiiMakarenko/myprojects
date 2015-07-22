@@ -1,5 +1,6 @@
-package english.dao;
+package english.dao.implementation;
 
+import english.dao.interfaces.UserDao;
 import english.domain.Role;
 import english.domain.User;
 import org.hibernate.SessionFactory;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by serg on 03.04.15.
+ * @author Sergii Makarenko
  */
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -90,10 +91,7 @@ public class UserDaoImpl implements UserDao {
                 .add(Restrictions.eq("userLogin",login))
                 .add(Restrictions.eq("userPassword",password))
                 .uniqueResult();
-        if(userTest==null) {
-            return false;
-        }
-        return true;
+        return userTest != null;
     }
 
     @Override
@@ -130,9 +128,8 @@ public class UserDaoImpl implements UserDao {
                 .add(Restrictions.eq("userLogin", user.getUserLogin()))
                 .uniqueResult();
 
-        if(userTest!=null && userTest.getUserId()!=user.getUserId()) {
+        if(userTest!=null && userTest.getUserId().equals(user.getUserId()))
             return false;
-        }
 
         User userBefore = (User) factory.getCurrentSession().get(User.class,user.getUserId());
         Role roleBefore = userBefore.getUserRole();

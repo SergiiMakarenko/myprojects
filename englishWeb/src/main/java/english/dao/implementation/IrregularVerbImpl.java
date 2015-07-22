@@ -1,13 +1,12 @@
-package english.dao;
+package english.dao.implementation;
 
+import english.dao.interfaces.IrregularVerbDao;
 import english.domain.IrregularVerb;
-import english.domain.TestVerb;
 import english.domain.User;
 import english.results.CommonMethods;
 import english.results.VerbsUserEffect;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,16 +16,12 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by serg on 09.04.15.
+ * @author Sergii Makarenko
  */
 @Repository
 public class IrregularVerbImpl implements IrregularVerbDao {
     @Autowired
     private SessionFactory factory;
-
-//    @Autowired
-//    private CommonMethods commonMethods;
-
 
     @Override
     public Long addVerb(IrregularVerb verb) {
@@ -68,7 +63,7 @@ public class IrregularVerbImpl implements IrregularVerbDao {
         IrregularVerb verbTest = (IrregularVerb) factory.getCurrentSession().createCriteria(IrregularVerb.class)
                 .add(Restrictions.eq("infinitive",infinitive))
                 .uniqueResult();
-        if(verbTest!=null && verbTest.getVerbId()!=id) {
+        if(verbTest!=null && !verbTest.getVerbId().equals(id)) {
             return false;
         }
         IrregularVerb verb = (IrregularVerb) factory.getCurrentSession().get(IrregularVerb.class,id);

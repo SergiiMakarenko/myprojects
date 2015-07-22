@@ -1,11 +1,14 @@
 package english.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by serg on 09.04.15.
+ * @author Sergii Makarenko
+ * Entity of irregular words
  */
 @Entity
 @Table(name = "IRREGULAR_VERBS")
@@ -26,6 +29,7 @@ public class IrregularVerb {
     @Column(name = "PAST_PARTICIPLE")
     private String pastParticiple;
 
+    @JsonIgnore
     @OneToMany
     private Set<TestVerb> testVerbSet;
 
@@ -42,10 +46,6 @@ public class IrregularVerb {
 
     public Long getVerbId() {
         return verbId;
-    }
-
-    public void setVerbId(Long verbId) {
-        this.verbId = verbId;
     }
 
     public String getInfinitive() {

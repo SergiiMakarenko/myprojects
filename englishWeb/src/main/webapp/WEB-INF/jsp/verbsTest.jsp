@@ -122,20 +122,21 @@
       <form id="paramForm" class="formWork" onsubmit="return checkForEmpty('inputParam','error')"
             action="/verbsTest.html" method="post">
 
-          <a class="promptText"> Choice amount irregular verbs to test: </a>
-          <c:if test="${wordsAmount==null}">
-              <input class="inputParam" id="range" type="range" min="1" max="15" step="1" name="wordsAmount"
-                     onchange="rangeValue('range','rangeValue')" value="5" > <div class="error" ></div >
-              <a id="rangeValue">5</a>
-          </c:if>
+          <div class="divSubMenu"> <a class="promptText"> Choice amount irregular verbs to test: </a> </div>
+
+          <div class="divSubMenu">
+          <c:set var="amount" value="5"></c:set>
           <c:if test="${wordsAmount!=null}">
-              <input class="inputParam" id="range" type="range" min="1" max="15" step="1" name="wordsAmount"
-                     onchange="rangeValue('range','rangeValue')" value="${wordsAmount}" > <div class="error" ></div >
-              <a id="rangeValue">${wordsAmount}</a>
+              <c:set var="amount" value="${wordsAmount}"></c:set>
           </c:if>
+              <input class="inputParam" id="range" type="range" min="1" max="15" step="1" name="wordsAmount"
+                     onchange="rangeValue('range','rangeValue')" value="${amount}" > <div class="error" ></div >
+              <a id="rangeValue">${amount}</a>
+          </div>
           <BR>
 
-          <a class="promptText"> Choice the max effectiveness: </a>
+          <div class="divSubMenu">  <a class="promptText"> Choice the max effectiveness: </a> </div>
+          <div class="divSubMenu">
           <c:set var="eff" value="0.75"></c:set>
           <c:if test="${effectiveness!=null}">
               <c:set var="eff" value="${effectiveness}"></c:set>
@@ -143,6 +144,7 @@
           <input class="viewVerbs" id="effectiveness" type="range" min="0" max="1" step="0.05" name="effectiveness"
                  onchange="rangeValue('effectiveness','effectivenessValue')" value="${eff}">
           <a id="effectivenessValue">${eff}</a>
+              </div>
           <BR>
 
           <input id="start" type="submit" value="Start">

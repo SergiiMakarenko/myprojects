@@ -1,5 +1,6 @@
-package english.dao;
+package english.dao.implementation;
 
+import english.dao.interfaces.TestVerbDao;
 import english.domain.IrregularVerb;
 import english.domain.Test;
 import english.domain.TestVerb;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by serg on 14.05.15.
+ * @author Sergii Makarenko
  */
 @Repository
 public class TestVerbDaoImpl implements TestVerbDao {
@@ -22,8 +23,8 @@ public class TestVerbDaoImpl implements TestVerbDao {
     @Override
     public Long createTestVerb(String pastSimpleTest, String pastParticipleTest, Long pastSimpleResult,
                                Long pastParticipleResult, Test test, IrregularVerb verb) {
-        return (Long) factory.getCurrentSession().save(new TestVerb(pastSimpleTest,pastParticipleTest,pastSimpleResult,
-                pastParticipleResult,test,verb));
+        return (Long) factory.getCurrentSession().save(new TestVerb(pastSimpleTest,pastParticipleTest,
+                pastSimpleResult, pastParticipleResult,test,verb));
     }
 
     @Override

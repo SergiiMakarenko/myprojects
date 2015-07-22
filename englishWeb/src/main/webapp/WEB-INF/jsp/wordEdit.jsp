@@ -20,23 +20,12 @@
       <script src="js/english.js"></script>
             <script>
                 function wordRead(){
-                    var userId = document.getElementById('selectUser');
                     var categoryId = document.getElementById('selectCategory');
                     var wordId = document.getElementById('selectWord').value;
 
                     var english = document.getElementById('english');
                     var ukrainian = document.getElementById('ukrainian');
                     var transcription = document.getElementById('transcription');
-                    $.ajax({
-                        datatype: 'json',
-                        url: '/userAjax?wordId='+wordId,
-                        success: function(data){
-                            userId.value=data.userId;
-                        },
-                        error: function(a,b,c){
-                            alert(a+b+c);
-                        }
-                    })
 
                     $.ajax({
                         datatype: 'json',
@@ -152,19 +141,6 @@
               </c:forEach>
           </select>
           <div id="erCategory" class="error" ></div>
-          <div class="promptText"> Choice user*: </div>
-          <select id="selectUser" class="editUser" name="userId">
-              <option></option>
-              <c:forEach var="user" items="${userList}">
-                  <c:if test="${user.userId!=userId}">
-                      <option id="${user.userId}" value="${user.userId}">${user.userLogin}</option>
-                  </c:if>
-                  <c:if test="${user.userId==userId}">
-                      <option selected="selected" id="${user.userId}" value="${user.userId}">${user.userLogin}</option>
-                  </c:if>
-              </c:forEach>
-          </select>
-          <div id="erUser" class="error" ></div >
           <BR>
           <input type="submit" value="Update">
 

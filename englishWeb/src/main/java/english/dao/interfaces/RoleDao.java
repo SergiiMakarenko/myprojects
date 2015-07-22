@@ -1,11 +1,11 @@
-package english.dao;
+package english.dao.interfaces;
 
 import english.domain.Role;
 
 import java.util.List;
 
 /**
- * Created by serg on 29.04.15.
+ * @author Sergii Makarenko
  */
 public interface RoleDao {
     Long createRole(String roleName);

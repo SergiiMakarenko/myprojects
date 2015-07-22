@@ -1,4 +1,4 @@
-package english.dao;
+package english.dao.interfaces;
 
 import english.domain.Menu;
 import english.domain.Role;
@@ -6,7 +6,7 @@ import english.domain.Role;
 import java.util.List;
 
 /**
- * Created by serg on 10.05.15.
+ * @author Sergii Makarenko
  */
 public interface MenuDao {
     Long createMenu(String menuCategory, Role role);

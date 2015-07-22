@@ -4,7 +4,7 @@ import javax.servlet.*;
 import java.io.IOException;
 
 /**
- * Created by serg on 14.05.15.
+ * @author Sergii Makarenko
  */
 public class UTF8Filter implements Filter {
     @Override

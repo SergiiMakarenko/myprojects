@@ -99,6 +99,9 @@ public class AjaxController {
                        String[] pastSimpleResult, String[] pastParticipleResult,
                        @ModelAttribute("userName") String userName){
 
+        if(pastSimple.length==0) pastSimple=new String[]{""};
+        if(pastParticiple.length==0) pastParticiple=new String[]{""};
+
         boolean save = testService.saveIrregularVerbTest(userName, verbListId, pastSimple, pastParticiple,
                 pastSimpleResult,pastParticipleResult);
 
@@ -141,6 +144,16 @@ public class AjaxController {
         if(menuItemsId!=null && !("").equals(menuItemsId))
             return menuService.getMenuItemsById(menuItemsId);
         return null;
+    }
+
+    @RequestMapping(value = "/EngUkrTranslate", method = { RequestMethod.GET})
+    public @ResponseBody
+    String[] EngUkrTranslate(Long[] wordId, String[] ukrainian, Long[] ukrainianResult,
+                       @ModelAttribute("userName") String userName){
+        if(ukrainian.length==0) ukrainian = new String[]{""};
+
+        boolean save = testService.saveWordTranslate(userName,wordId,ukrainian,ukrainianResult,"Translate Eng-Ukr");
+        return ukrainian;
     }
 
 }

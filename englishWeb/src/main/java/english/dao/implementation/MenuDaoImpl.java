@@ -1,20 +1,19 @@
-package english.dao;
+package english.dao.implementation;
 
+import english.dao.interfaces.MenuDao;
 import english.domain.Menu;
 import english.domain.Role;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.convert.ReadingConverter;
 import org.springframework.stereotype.Repository;
 
-import java.awt.geom.RectangularShape;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- * Created by serg on 10.05.15.
+ * @author Sergii Makarenko
  */
 @Repository
 public class MenuDaoImpl implements MenuDao {

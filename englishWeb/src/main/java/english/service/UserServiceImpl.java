@@ -1,10 +1,9 @@
 package english.service;
 
 
-import english.dao.*;
-import english.domain.IrregularVerb;
+import english.dao.interfaces.RoleDao;
+import english.dao.interfaces.UserDao;
 import english.domain.Role;
-import english.domain.Word;
 import english.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,17 +13,15 @@ import java.util.List;
 
 
 /**
- * Created by serg on 03.04.15.
+ * @author Sergii Makarenko
  */
 @Service
-
 public class UserServiceImpl implements UserService  {
 
     @Autowired
     private UserDao userDao;
     @Autowired
     private RoleDao roleDao;
-
 
     @Override
     @Transactional(readOnly = true)

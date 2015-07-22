@@ -3,11 +3,10 @@ package english.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * Created by serg on 10.05.15.
+ * @author Sergii Makarenko
+ * Entity of menu items -
  */
 @Entity
 @Table(name = "MENUITEMS")
@@ -38,10 +37,6 @@ public class MenuItems {
 
     public Long getMenuItemsId() {
         return menuItemsId;
-    }
-
-    public void setMenuItemsId(Long menuItemsId) {
-        this.menuItemsId = menuItemsId;
     }
 
     public String getMenuItems() {
@@ -78,6 +73,8 @@ public class MenuItems {
         if (menu != null ? !menu.equals(menuItems1.menu) : menuItems1.menu != null) return false;
         if (menuItems != null ? !menuItems.equals(menuItems1.menuItems) : menuItems1.menuItems != null) return false;
         if (menuItemsCode != null ? !menuItemsCode.equals(menuItems1.menuItemsCode) : menuItems1.menuItemsCode != null)
+            return false;
+        if (menuItemsId != null ? !menuItemsId.equals(menuItems1.menuItemsId) : menuItems1.menuItemsId != null)
             return false;
 
         return true;

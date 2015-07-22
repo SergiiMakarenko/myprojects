@@ -1,4 +1,4 @@
-package english.dao;
+package english.dao.interfaces;
 
 import english.domain.Menu;
 import english.domain.MenuItems;
@@ -6,7 +6,7 @@ import english.domain.MenuItems;
 import java.util.List;
 
 /**
- * Created by serg on 10.05.15.
+ * @author Sergii Makarenko
  */
 public interface MenuItemsDao {
     Long createMenuItems(String menuItems, String menuItemsCode, Menu menu);

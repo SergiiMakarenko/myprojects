@@ -1,13 +1,7 @@
 package english.service;
 
-import english.dao.IrregularVerbDao;
-import english.dao.TestDao;
-import english.dao.TestVerbDao;
-import english.dao.UserDao;
-import english.domain.IrregularVerb;
-import english.domain.Test;
-import english.domain.TestVerb;
-import english.domain.User;
+import english.dao.interfaces.*;
+import english.domain.*;
 import english.results.ResultIrregularVerbs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 /**
- * Created by serg on 14.05.15.
+ * @author Sergii Makarenko
  */
 @Service
 public class TestServiceImpl implements TestService {
@@ -32,6 +26,12 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private IrregularVerbDao irregularVerbDao;
+
+    @Autowired
+    private WordDao wordDao;
+
+    @Autowired
+    private WordTestResultDao wordTestResultDao;
 
     @Override
     @Transactional
@@ -129,17 +129,14 @@ public class TestServiceImpl implements TestService {
         if(userName.equals("Guest")){
             return false;
         }
-
         User user =  userDao.getUserByLogin(userName);
         Long newTestId = createTest("Irregular verbs (random)", new Date(), user);
         Test test = getTestById(newTestId);
-
         for(int i = 0; i<verbListId.length;i++){
             createTestVerb(pastSimple[i], pastParticiple[i], Long.parseLong(pastSimpleResult[i]),
                     Long.parseLong(pastParticipleResult[i]), test,
                     irregularVerbDao.getVerbById(Long.parseLong(verbListId[i])));
         }
-
         List<TestVerb> testVerbs = getTestVerbsByTest(test);
         Set<TestVerb> testVerbSet = new HashSet<>();
         testVerbSet.addAll(testVerbs);
@@ -164,9 +161,40 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    @Transactional
+    public boolean saveWordTranslate(String userName, Long[] wordId, String[] answer, Long[] result,
+                                     String testName) {
+        if(userName.equals("Guest")){
+            return false;
+        }
+
+        User user =  userDao.getUserByLogin(userName);
+        Long newTestId = createTest(testName, new Date(), user);
+        Test test = getTestById(newTestId);
+
+        for(int i = 0; i<wordId.length;i++){
+            createWordTestResult(answer[i], result[i], test,wordDao.getWordById(wordId[i]));
+        }
+
+        List<Test> tests = getTestByUser(user);
+        Set<Test> testSet = new HashSet<>();
+        testSet.addAll(tests);
+        user.setTestSet(testSet);
+        userDao.updateUser(user);
+
+        return true;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<ResultIrregularVerbs> getTestResults(String testName, User user, Date dateFrom, Date dateTo) {
         return testDao.getTestResults(testName, user, dateFrom, dateTo);
+    }
+
+    @Override
+    @Transactional
+    public Long createWordTestResult(String answer, Long result, Test test, Word word) {
+        return wordTestResultDao.createWordTestResult(answer, result, test, word);
     }
 
 

@@ -7,7 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by serg on 03.04.15.
+ * @author Sergii Makarenko.
+ * Entitty of language category
  */
 @Entity
 @Table(name = "CATEGORIES")
@@ -36,10 +37,6 @@ public class Category {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public String getCategoryName() {
         return categoryName;
     }
@@ -48,12 +45,12 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public Set<Word> getWords() {
-        return words;
-    }
-
     public void setWords(Set<Word> words) {
         this.words = words;
+    }
+
+    public Set<Word> getWords() {
+        return words;
     }
 
     @Override

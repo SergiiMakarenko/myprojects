@@ -3,13 +3,15 @@ package english.service;
 import english.domain.Category;
 import english.domain.User;
 import english.domain.Word;
+import english.domain.WordTestResult;
+import english.results.WordUserEffect;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by serg on 07.05.15.
+ * @author Sergii Makarenko
  */
 public interface WordService {
     Long addCategory(String name);
@@ -25,5 +27,10 @@ public interface WordService {
     List<Word> getRandomWords(int cntWords);
     boolean wordEdit(Long wordId, String eng, String ukr, String transcription, Date dateIn, User user, Category category);
     Word getWordById(Long wordId);
+    List<Word> getWordsByPortionUser(int portion, int startFrom, User user, User admin);
+    List<Word> findAllWordsByUser(User user, User admin);
+    List<WordUserEffect> getWordsByPortionByUserByEffect(int portion, int startFrom, User user, User admin,
+                                                         Double effectiveness);
+    List<WordUserEffect> getRandomWordsByUserEffect(int cntWords, User user, User admin, Double effectiveness);
 
 }

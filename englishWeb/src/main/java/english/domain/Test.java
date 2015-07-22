@@ -1,13 +1,13 @@
 package english.domain;
 
 import javax.persistence.*;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by serg on 14.05.15.
+ * @author Sergii Makarenko
+ * Entity of types of tests on web site
  */
 @Entity
 @Table(name = "TESTS")
@@ -31,6 +31,9 @@ public class Test {
     @OneToMany
     private Set<TestVerb> testVerbSet;
 
+    @OneToMany
+    private Set<WordTestResult> wordTestResults;
+
     public Test(){}
 
     public Test(String testName, Date testDate, User user) {
@@ -38,31 +41,20 @@ public class Test {
         this.testDate = testDate;
         this.user = user;
         this.testVerbSet = new HashSet<>();
+        this.wordTestResults= new HashSet<>();
     }
 
     public Long getTestId() {
         return testId;
     }
 
-    public void setTestId(Long testId) {
-        this.testId = testId;
-    }
 
     public String getTestName() {
         return testName;
     }
 
-    public void setTestName(String testName) {
-        this.testName = testName;
-    }
-
     public String getTestDate() {
-        String string = String.format("%1$tF",testDate);
-        return string;
-    }
-
-    public void setTestDate(Date testDate) {
-        this.testDate = testDate;
+        return String.format("%1$tF",testDate);
     }
 
     public User getUser() {
@@ -79,6 +71,14 @@ public class Test {
 
     public void setTestVerbSet(Set<TestVerb> testVerbSet) {
         this.testVerbSet = testVerbSet;
+    }
+
+    public Set<WordTestResult> getWordTestResults() {
+        return wordTestResults;
+    }
+
+    public void setWordTestResults(Set<WordTestResult> wordTestResults) {
+        this.wordTestResults = wordTestResults;
     }
 
     @Override

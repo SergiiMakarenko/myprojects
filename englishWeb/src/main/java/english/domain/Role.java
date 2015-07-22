@@ -7,7 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by serg on 29.04.15.
+ * @author Sergii Makarenko
+ * Entity of users roles
  */
 @Entity
 @Table(name = "ROLES")
@@ -42,10 +43,6 @@ public class Role {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
     public String getRoleName() {
         return roleName;
     }
@@ -75,7 +72,6 @@ public class Role {
         return "Role{" +
                 "roleId=" + roleId +
                 ", roleName='" + roleName + '\'' +
-           //     ", users='" + userSet + '\'' +
                 '}';
     }
 }

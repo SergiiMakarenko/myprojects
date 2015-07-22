@@ -1,14 +1,13 @@
 package english.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javafx.scene.control.MenuItem;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by serg on 10.05.15.
+ * @author Sergii Makarenko
+ * Entity of menu head
  */
 @Entity
 @Table(name = "MENUS")
@@ -42,16 +41,8 @@ public class Menu {
         return menuId;
     }
 
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
-
     public String getMenuCategory() {
         return menuCategory;
-    }
-
-    public void setMenuCategory(String menuCategory) {
-        this.menuCategory = menuCategory;
     }
 
     public Role getRole() {
@@ -85,12 +76,8 @@ public class Menu {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Menu menu = (Menu) o;
-
-        if (menuCategory != null ? !menuCategory.equals(menu.menuCategory) : menu.menuCategory != null) return false;
-
-        return true;
+        return !(menuCategory != null ? !menuCategory.equals(menu.menuCategory) : menu.menuCategory != null);
     }
 
     @Override

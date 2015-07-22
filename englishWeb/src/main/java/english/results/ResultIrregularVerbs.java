@@ -3,7 +3,7 @@ package english.results;
 import english.domain.Test;
 
 /**
- * Created by serg on 21.05.15.
+ * @author Sergii Makarenko
  */
 public class ResultIrregularVerbs {
     private Test test;
@@ -39,40 +39,20 @@ public class ResultIrregularVerbs {
         return countWordTest;
     }
 
-    public void setCountWordTest(Long countWordTest) {
-        this.countWordTest = countWordTest;
-    }
-
     public Long getCorrectPastSimpleCount() {
         return correctPastSimpleCount;
-    }
-
-    public void setCorrectPastSimpleCount(Long correctPastSimpleCount) {
-        this.correctPastSimpleCount = correctPastSimpleCount;
     }
 
     public Double getPastSimpleEffectiveness() {
         return pastSimpleEffectiveness;
     }
 
-    public void setPastSimpleEffectiveness(Double pastSimpleEffectiveness) {
-        this.pastSimpleEffectiveness = pastSimpleEffectiveness;
-    }
-
     public Long getCorrectPastParticipleCount() {
         return correctPastParticipleCount;
     }
 
-    public void setCorrectPastParticipleCount(Long correctPastParticipleCount) {
-        this.correctPastParticipleCount = correctPastParticipleCount;
-    }
-
     public Double getPastParticipleEffectiveness() {
         return pastParticipleEffectiveness;
-    }
-
-    public void setPastParticipleEffectiveness(Double pastParticipleEffectiveness) {
-        this.pastParticipleEffectiveness = pastParticipleEffectiveness;
     }
 
     public Double getEffectiveness() {

@@ -1,6 +1,6 @@
 package english.service;
 
-import english.dao.IrregularVerbDao;
+import english.dao.interfaces.IrregularVerbDao;
 import english.domain.IrregularVerb;
 import english.domain.User;
 import english.results.VerbsUserEffect;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by serg on 06.05.15.
+ * @author Sergii Makarenko
  */
 @Service
 public class IrregularVerbServiceImpl implements IrregularVerbService {
@@ -32,12 +32,6 @@ public class IrregularVerbServiceImpl implements IrregularVerbService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<IrregularVerb> getVerbsByPortion(int portion, int startFrom) {
-        return irregularVerbDao.getVerbsByPortion(portion, startFrom);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public List<VerbsUserEffect> getRandomIrregularVerbs(int cntWords,User user, Double effectiveness) {
         return irregularVerbDao.getRandomIrregularVerbs(cntWords, user, effectiveness);
     }
@@ -52,12 +46,6 @@ public class IrregularVerbServiceImpl implements IrregularVerbService {
     @Transactional(readOnly = true)
     public IrregularVerb getVerbById(Long verbId) {
         return irregularVerbDao.getVerbById(verbId);
-    }
-
-    @Override
-    @Transactional
-    public boolean updateVerb(IrregularVerb irregularVerb) {
-        return irregularVerbDao.updateVerb(irregularVerb);
     }
 
     @Override

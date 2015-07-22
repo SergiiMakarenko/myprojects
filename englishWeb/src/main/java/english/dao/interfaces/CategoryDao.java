@@ -1,11 +1,11 @@
-package english.dao;
+package english.dao.interfaces;
 
 import english.domain.Category;
 
 import java.util.List;
 
 /**
- * Created by serg on 06.04.15.
+ * @author Sergii Makarenko
  */
 public interface CategoryDao {
     Long addCategory(String name);

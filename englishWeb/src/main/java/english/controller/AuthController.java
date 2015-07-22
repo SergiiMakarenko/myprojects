@@ -15,15 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
-import java.nio.channels.SeekableByteChannel;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,6 +80,7 @@ public class AuthController {
         Map<String,List<MenuItems>> mapMenu = new HashMap<>();
         boolean auth = userService.checkUser(login,pass);
         if(auth) {
+            logger.info("Success log in. User: " + login);
             model.addAttribute("userName", login);
             model.addAttribute("userRole", userService.readUser(login, pass).getUserRole().getRoleName());
             List<Menu> menus = menuService.getMenuByRole(userService.readUser(login, pass).getUserRole());
@@ -98,6 +90,7 @@ public class AuthController {
 
             model.addAttribute("map", mapMenu);
             return "homePage";
+
         } else {
             model.addAttribute("tryAgain","");
             if(login!=null) {

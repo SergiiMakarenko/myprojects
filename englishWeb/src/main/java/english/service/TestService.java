@@ -1,16 +1,13 @@
 package english.service;
 
-import english.domain.IrregularVerb;
-import english.domain.Test;
-import english.domain.TestVerb;
-import english.domain.User;
+import english.domain.*;
 import english.results.ResultIrregularVerbs;
 
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by serg on 14.05.15.
+ * @author Sergii Makarenko
  */
 public interface TestService {
     Long createTest(String testName, Date testDate, User user);
@@ -32,6 +29,7 @@ public interface TestService {
     List<TestVerb> getTestVerbsByIrregularVerb(IrregularVerb irregularVerb);
     boolean saveIrregularVerbTest(String userName, String[] verbListId, String[] pastSimple, String[] pastParticiple,
                                   String[] pastSimpleResult, String[] pastParticipleResult);
+    boolean saveWordTranslate(String userName, Long[] wordId, String[] answer, Long[] result, String testName);
     List<ResultIrregularVerbs> getTestResults(String testName, User user, Date dateFrom,Date dateTo);
-
+    Long createWordTestResult(String answer, Long result, Test test, Word word);
 }

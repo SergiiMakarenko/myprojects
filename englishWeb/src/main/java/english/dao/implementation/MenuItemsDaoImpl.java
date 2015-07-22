@@ -1,5 +1,6 @@
-package english.dao;
+package english.dao.implementation;
 
+import english.dao.interfaces.MenuItemsDao;
 import english.domain.Menu;
 import english.domain.MenuItems;
 import org.hibernate.SessionFactory;
@@ -43,8 +44,8 @@ public class MenuItemsDaoImpl implements MenuItemsDao {
 
     @Override
     public List<MenuItems> findAllMenuItems() {
-        return factory.getCurrentSession().createCriteria(MenuItems.class)
-                .list();
+            return factory.getCurrentSession().createCriteria(MenuItems.class)
+                    .list();
     }
 
     @Override
@@ -76,7 +77,7 @@ public class MenuItemsDaoImpl implements MenuItemsDao {
                 .add(Restrictions.eq("menu",menu))
                 .uniqueResult();
 
-        if(menuItemsTest!=null && menuItemsTest.getMenuItemsId()!=menuItemsId) {
+        if(menuItemsTest!=null && !menuItemsTest.getMenuItemsId().equals(menuItemsId)) {
             return false;
         }
 

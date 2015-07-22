@@ -1,7 +1,7 @@
 package english.results;
 
 /**
- * Created by serg on 05.06.15.
+ * @author Sergii Makarenko
  */
 public class VerbsTestDetail {
     private String infinitive;

@@ -214,6 +214,57 @@ ul.dropdown li.dropdown-top:hover .dropdown-inside {
     font-size: x-large;
     margin: 5px;
     border-radius: 5px;
-
+}
+.divSubMenu{
+    display: inline-block;
+    width: 30%;
+    margin: 2px;
 }
 
+
+.divLetterTable{
+    display: table;
+    width: 500px;
+    height: 100px;
+    table-layout: fixed;
+    background: green;
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 3px;
+}
+.divLetterRow{
+    display: table-row;
+    height: 40px;
+
+}
+.divLetter{
+    display: table-cell;
+    background: antiquewhite;
+    width: 40px;
+    border-radius: 5px;
+    font-size: xx-large;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+
+.divLetterTableRes{
+    display: table;
+    width: 300px;
+    height: 50px;
+    background: cornflowerblue;
+    border-radius: 2px;
+    border-collapse: separate;
+    border-spacing: 3px;
+    table-layout: fixed;
+}
+.divLetterRes{
+    display: table-cell;
+    background: whitesmoke;
+    width: 40px;
+    border-radius: 2px;
+    font-size: xx-large;
+    text-align: center;
+    vertical-align: middle;
+}

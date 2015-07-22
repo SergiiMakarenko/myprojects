@@ -8,7 +8,7 @@ import english.domain.User;
 import java.util.List;
 
 /**
- * Created by serg on 03.04.15.
+ * @author Sergii Makarenko
  */
 public interface UserService {
     Long createRole(String roleName);

@@ -1,5 +1,6 @@
-package english.dao;
+package english.dao.implementation;
 
+import english.dao.interfaces.RoleDao;
 import english.domain.Role;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by serg on 29.04.15.
+ * @author Sergii Makarenko
  */
 @Repository
 public class RoleDaoImpl implements RoleDao {

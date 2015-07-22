@@ -1,4 +1,4 @@
-package english.dao;
+package english.dao.interfaces;
 
 import english.domain.IrregularVerb;
 import english.domain.User;
@@ -7,7 +7,7 @@ import english.results.VerbsUserEffect;
 import java.util.List;
 
 /**
- * Created by serg on 09.04.15.
+ * @author Sergii Makarenko
  */
 public interface IrregularVerbDao {
     Long addVerb(IrregularVerb verb);

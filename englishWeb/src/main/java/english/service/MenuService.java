@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by serg on 10.05.15.
+ * @author Sergii Makarenko
  */
 public interface MenuService {
 

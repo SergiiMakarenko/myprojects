@@ -1,7 +1,7 @@
 package english.service;
 
-import english.dao.MenuDao;
-import english.dao.MenuItemsDao;
+import english.dao.interfaces.MenuDao;
+import english.dao.interfaces.MenuItemsDao;
 import english.domain.Menu;
 import english.domain.MenuItems;
 import english.domain.Role;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by serg on 10.05.15.
+ * @author Sergii Makarenko
  */
 @Service
 public class MenuServiceImpl implements MenuService {

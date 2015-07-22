@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by serg on 22.06.15.
+ * @author Sergii Makarenko
+ * immplemets of common methods, that needs in another classes
  */
 public class CommonMethods <E> {
     public CommonMethods(){

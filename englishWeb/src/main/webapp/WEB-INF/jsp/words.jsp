@@ -18,14 +18,26 @@
             <script>
                 function next(){
                     if(${fullList!=true}){
-                        window.location = "/words.html?portion=${portion}&startPosition=${startPosition+portion}"
+                        window.location = "/words.html?portion=${portion}&startPosition=${startPosition+
+                        portion}&userWord=${userWord}&effectiveness=${effectiveness}"
                     }
                 }
+
                 function preview(){
                     if(${startPosition>0}){
-                        window.location ="/words.html?portion=${portion}&startPosition=${startPosition-portion}"
+                        window.location ="/words.html?portion=${portion}&startPosition=${startPosition
+                        -portion}&userWord=${userWord}&effectiveness=${effectiveness}"
                     }
                 }
+
+                $(document).ready(function() {
+                    if("${userWord}"!=''){
+                        document.getElementById("${userWord}").checked=true;
+                    } else{
+                        document.getElementById('onlyMy').checked=true;
+                    }
+                });
+
 
             </script>
       <link rel="stylesheet" type="text/css" href="css/englishStyle.css">
@@ -76,32 +88,60 @@
   <div id="mainBlock">
 
       <form class="formWork" action="/words.html" method="post">
-          <a class="promptText"> Choice amount words to view: </a>
-
-          <c:if test="${portion==null}">
-              <input id="range" type="range" min="5" max="20" step="5" name="portion"
-                     onchange="rangeValue('range','rangeValue')" value="10" > <div class="error" ></div >
-              <a id="rangeValue">10</a>
-          </c:if>
-
+          <div class="divSubMenu"> <a class="promptText1"> Choice amount words to view: </a> </div>
+          <div class="divSubMenu">
+          <c:set var="port" value="10"></c:set>
           <c:if test="${portion!=null}">
-              <input id="range" type="range" min="5" max="20" step="5" name="portion"
-                     onchange="rangeValue('range','rangeValue')" value="${portion}" > <div class="error" ></div >
-              <a id="rangeValue">${portion}</a>
+              <c:set var="port" value="${portion}"></c:set>
           </c:if>
+          <input id="range" type="range" min="5" max="20" step="5" name="portion"
+                 onchange="rangeValue('range','rangeValue')" value="${port}" > <div class="error" ></div >
+          <a id="rangeValue">${port}</a>
+          </div>
 
           <BR>
-          <input type="submit" value="View">
+
+          <div class="divSubMenu">
+              <input type="radio" name="userWord" id="onlyMy" value="onlyMy">Only my words
+          </div>
+          <div class="divSubMenu">
+              <input type="radio" name="userWord" id="onlyAdmin" value="onlyAdmin">Only admins words
+          </div>
+          <div class="divSubMenu">
+              <input type="radio" name="userWord" id="myAndAdmin" value="myAndAdmin">My and admins words
+          </div>
+          <BR>
+
+          <div class="divSubMenu"> <a> Choice your actual max effectiveness: </a> </div>
+          <div class="divSubMenu">
+              <c:set var="eff" value="0.75"></c:set>
+              <c:if test="${effectiveness!=null}">
+                  <c:set var="eff" value="${effectiveness}"></c:set>
+              </c:if>
+              <input class="viewVerbs" id="effectiveness" type="range" min="0" max="1" step="0.05" name="effectiveness"
+                     onchange="rangeValue('effectiveness','effectivenessValue')" value="${eff}">
+              <a id="effectivenessValue">${eff}</a>
+          </div>
+          <BR>
+
+          <input type="submit" onclick="check()" value="View">
 
       </form>
 
       <h4>${userName}, where are words by portion: </h4>
+      ${message}
+      <button onclick="preview()" > <<< </button>
+      <button onclick="next()" > >>> </button>
       <table class="resultTable">
           <TR>
               <Th>English word</Th>
               <Th>Ukrainian word</Th>
               <Th>Transcription</Th>
               <Th>Category</Th>
+              <Th>Amount of eng-ukr tests</Th>
+              <Th>Eng-ukr effectiveness</Th>
+              <Th>Amount of ukr-eng tests</Th>
+              <Th>Ukr-eng effectiveness</Th>
           </TR>
           <c:set var="rowIndex" value="0"></c:set>
 
@@ -113,16 +153,17 @@
               </c:if>
               <TR id="${idName}">
 
-                  <TD>${word.englishWord}</TD>
-                  <TD>${word.ukrainianWord}</TD>
-                  <TD>${word.transcription}</TD>
-                  <TD>${word.category.categoryName}</TD>
+                  <TD>${word.word.englishWord}</TD>
+                  <TD>${word.word.ukrainianWord}</TD>
+                  <TD>${word.word.transcription}</TD>
+                  <TD>${word.word.category.categoryName}</TD>
+                  <TD class="effectivenessIsNull">${word.amountEngUkr}</TD>
+                  <TD class="effectiveness">${word.effectivenessEngUkr}</TD>
+                  <TD>${word.amountUkrEng}</TD>
+                  <TD>${word.effectivenessUkrEng}</TD>
               </TR>
           </c:forEach>
       </table>
-      ${message}
-      <button onclick="preview()" > <<< </button>
-      <button onclick="next()" > >>> </button>
 
   </div>
   <div id="rightColumn">

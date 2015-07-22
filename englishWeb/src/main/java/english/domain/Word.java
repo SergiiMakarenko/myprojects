@@ -1,10 +1,15 @@
 package english.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Created by serg on 03.04.15.
+ * @author Sergii Makarenko
+ * Entity of words
  */
 @Entity
 @Table(name = "WORDS")
@@ -34,6 +39,10 @@ public class Word {
     @ManyToOne
     private Category category;
 
+    @JsonIgnore
+    @OneToMany
+    private Set<WordTestResult> wordTestResultSet;
+
     public Word(){
 
     }
@@ -45,6 +54,7 @@ public class Word {
         this.user = user;
         this.category = category;
         this.transcription = transcription;
+        this.wordTestResultSet = new HashSet<>();
     }
 
     public Date getDateIn() {
@@ -101,6 +111,14 @@ public class Word {
 
     public void setTranscription(String transcription) {
         this.transcription = transcription;
+    }
+
+    public Set<WordTestResult> getWordTestResultSet() {
+        return wordTestResultSet;
+    }
+
+    public void setWordTestResultSet(Set<WordTestResult> wordTestResultSet) {
+        this.wordTestResultSet = wordTestResultSet;
     }
 
     @Override

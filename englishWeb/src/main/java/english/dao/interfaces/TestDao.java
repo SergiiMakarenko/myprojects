@@ -1,4 +1,4 @@
-package english.dao;
+package english.dao.interfaces;
 
 import english.domain.Test;
 import english.domain.User;
@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by serg on 14.05.15.
+ * @author Sergii Makarenko
  */
 public interface TestDao {
     Long createTest(String testName, Date testDate, User user);
